@@ -1,5 +1,5 @@
 /**
- * Rohan Shinde Photography & Films (RSP)
+ * Julian Vance Photography & Cinema (JV)
  * Cinematic Editorial Motion & Interaction Engine
  */
 
@@ -355,9 +355,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const locVal = document.getElementById('inq-location')?.value || '';
 
     const text = encodeURIComponent(
-      `Hello Rohan! We would like to check availability for our wedding on ${dateVal} in ${locVal}.`
+      `Hello Julian! We would like to check availability for our wedding on ${dateVal} in ${locVal}.`
     );
-    window.open(`https://wa.me/919820012345?text=${text}`, '_blank');
+    window.open(`https://wa.me/12125550198?text=${text}`, '_blank');
   });
 
   // --- 12. Pointer Tilt on "Made of moments" Mosaic ---
