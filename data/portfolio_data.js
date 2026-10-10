@@ -1,0 +1,407 @@
+window.EMBEDDED_PORTFOLIO_DATA = {
+  "brand": {
+    "name": "Rohan Shinde Photography & Films",
+    "shortName": "RSP",
+    "tagline": "Timeless Stories Captured Across Generations",
+    "description": "International award-winning wedding photography and filmmaking company based in Mumbai, India. We specialize in capturing timeless stories through candid, traditional, and cinematic artistry across India and global destinations.",
+    "location": "Mumbai, India",
+    "founded": "2014",
+    "weddingsDocumented": "250+",
+    "countriesCovered": "12+",
+    "awardsCount": "18+",
+    "email": "contact@rohanshinde.com",
+    "phone": "+91 98200 12345",
+    "whatsapp": "+919820012345",
+    "instagram": "https://www.instagram.com/rohanshindeofficial",
+    "facebook": "https://www.facebook.com/rohanshinde.photos",
+    "youtube": "https://www.youtube.com/@rohanshindephotographyrsp1689",
+    "heroImage": "assets/images/hero-rsp07477.jpg",
+    "logo": "assets/images/logo.png"
+  },
+  "statement": {
+    "title": "Timeless Visual Storytelling",
+    "quote": "We approach wedding filmmaking with the intent of making something timeless, something that carries your story across generations. We try to capture reality in the most beautiful way possible, versus modifying realities to make them fit manufactured narratives. Couples who choose us, understand and trust this, and here are the films and frames we have to show for it."
+  },
+  "films": [
+    {
+      "id": "film-1",
+      "title": "Akshay & Payal | It's a Love Thing | Prewedding in Goa",
+      "couple": "Akshay & Payal",
+      "subtitle": "Goa Beach & Coastal Romance",
+      "category": "prewedding",
+      "categoryLabel": "Pre-Wedding",
+      "location": "Goa, India",
+      "youtubeId": "9yglQHb4C7k",
+      "thumbnail": "assets/images/thumb_9yglQHb4C7k.jpg",
+      "duration": "3:42",
+      "description": "Golden hour coastal breeze and unscripted laughter along the sun-drenched shores of South Goa."
+    },
+    {
+      "id": "film-2",
+      "title": "Payal & Sumeet | Stolen Hearts | Destination Wedding at The Fern, Lonavala",
+      "couple": "Payal & Sumeet",
+      "subtitle": "Same Day Edit & Grand Celebrations",
+      "category": "destination",
+      "categoryLabel": "Destination Wedding",
+      "location": "The Fern, Lonavala",
+      "youtubeId": "FEMnSpClYyo",
+      "thumbnail": "assets/images/thumb_FEMnSpClYyo.jpg",
+      "duration": "5:18",
+      "description": "Nestled in the lush Sahyadri hills, an emotionally charged weekend filled with royal pheras and heartfelt vows."
+    },
+    {
+      "id": "film-3",
+      "title": "Ashish & Kanan | In Love Forever | Gujarati Wedding in Mumbai",
+      "couple": "Ashish & Kanan",
+      "subtitle": "Vibrant Traditions & Garba Nights",
+      "category": "wedding",
+      "categoryLabel": "Cultural Wedding",
+      "location": "Mumbai, India",
+      "youtubeId": "wY5E35YFkhA",
+      "thumbnail": "assets/images/thumb_wY5E35YFkhA.jpg",
+      "duration": "4:35",
+      "description": "High-energy Dandiya beats transitioning into soulful sacred pheras amidst familial tears of pure joy."
+    },
+    {
+      "id": "film-4",
+      "title": "Viraj & Geeta : Close to Me | Pre-wedding at Sets in the City",
+      "couple": "Viraj & Geeta",
+      "subtitle": "Cinematic Editorial Romance",
+      "category": "prewedding",
+      "categoryLabel": "Pre-Wedding",
+      "location": "Sets in the City, Mumbai",
+      "youtubeId": "SuJPTNyEuV8",
+      "thumbnail": "assets/images/thumb_SuJPTNyEuV8.jpg",
+      "duration": "3:15",
+      "description": "Contemporary styling meeting cinematic lighting in an artistic exploration of intimacy and quiet moments."
+    },
+    {
+      "id": "film-5",
+      "title": "Paras & Chandni | Falling in Love | Gujarati Wedding in Mumbai",
+      "couple": "Paras & Chandni",
+      "subtitle": "Opulent Grandeur & Candid Smiles",
+      "category": "wedding",
+      "categoryLabel": "Cultural Wedding",
+      "location": "Mumbai, India",
+      "youtubeId": "3RyZOMXqd4I",
+      "thumbnail": "assets/images/thumb_3RyZOMXqd4I.jpg",
+      "duration": "4:50",
+      "description": "A celebration of legacy, heritage weaves, and radiant smiles illuminating every ritual from dawn to dusk."
+    },
+    {
+      "id": "film-6",
+      "title": "Cross Cultured Wedding | All for You | Sayali & Nilesh",
+      "couple": "Sayali & Nilesh",
+      "subtitle": "Two Cultures, One Heartfelt Journey",
+      "category": "destination",
+      "categoryLabel": "Cross-Cultural",
+      "location": "Mumbai, India",
+      "youtubeId": "RaCQIlaLAcE",
+      "thumbnail": "assets/images/thumb_RaCQIlaLAcE.jpg",
+      "duration": "6:10",
+      "description": "Harmonious blend of Maharashtrian rituals and contemporary celebrations tied with deep mutual devotion."
+    },
+    {
+      "id": "film-7",
+      "title": "Diptanshu & Ipsita | A Moment of Love | Pre-wedding",
+      "couple": "Diptanshu & Ipsita",
+      "subtitle": "Intimate Glimpses & Soft Whispers",
+      "category": "prewedding",
+      "categoryLabel": "Pre-Wedding",
+      "location": "Mumbai, India",
+      "youtubeId": "0vCHgO5dMoA",
+      "thumbnail": "assets/images/thumb_0vCHgO5dMoA.jpg",
+      "duration": "3:22",
+      "description": "Natural light, poetic framing, and genuine quiet glances between two best friends stepping into forever."
+    },
+    {
+      "id": "film-8",
+      "title": "Avani & Deepak : Forever from Now... | Pre-wedding at Sets in the City",
+      "couple": "Avani & Deepak",
+      "subtitle": "Classic Architecture & European Moods",
+      "category": "prewedding",
+      "categoryLabel": "Pre-Wedding",
+      "location": "Mumbai, India",
+      "youtubeId": "PqO5OgCC7Kw",
+      "thumbnail": "assets/images/thumb_PqO5OgCC7Kw.jpg",
+      "duration": "3:55",
+      "description": "Dramatic backdrops and effortless chemistry that look and feel like an intimate French cinema reel."
+    },
+    {
+      "id": "film-9",
+      "title": "Grand Reception at Athena Banquets | Take Me Home | Varun - Neha",
+      "couple": "Varun & Neha",
+      "subtitle": "Evening Lights & Black Tie Elegance",
+      "category": "wedding",
+      "categoryLabel": "Reception",
+      "location": "Athena Banquets, Mumbai",
+      "youtubeId": "edqpmO6yEZs",
+      "thumbnail": "assets/images/thumb_edqpmO6yEZs.jpg",
+      "duration": "5:02",
+      "description": "Sparklers, chandeliers, and an unforgettable dance floor surrounded by their closest lifelong friends."
+    },
+    {
+      "id": "film-10",
+      "title": "Aarti & Mihir : Soul Struck | Marwadi Wedding in Mumbai",
+      "couple": "Aarti & Mihir",
+      "subtitle": "Royal Rajputana Grandeur",
+      "category": "wedding",
+      "categoryLabel": "Cultural Wedding",
+      "location": "Mumbai, India",
+      "youtubeId": "fM-v0w_xlCE",
+      "thumbnail": "assets/images/thumb_fM-v0w_xlCE.jpg",
+      "duration": "4:40",
+      "description": "Intricate heritage jewelry, floral showers, and unforgettable moments etched with sacred mantras."
+    },
+    {
+      "id": "film-11",
+      "title": "Pre-wedding at Honeybook Studios | You're the One | Kaushal & Jaya",
+      "couple": "Kaushal & Jaya",
+      "subtitle": "Playful Reverie & Warm Sunset Glow",
+      "category": "prewedding",
+      "categoryLabel": "Pre-Wedding",
+      "location": "Honeybook Studios, Mumbai",
+      "youtubeId": "YyI1nxY_BK0",
+      "thumbnail": "assets/images/thumb_YyI1nxY_BK0.jpg",
+      "duration": "3:30",
+      "description": "Spontaneous laughter, genuine romance, and visual warmth captured without any forced poses."
+    },
+    {
+      "id": "film-12",
+      "title": "Agnello & Diana: Love Unlocked",
+      "couple": "Agnello & Diana",
+      "subtitle": "Catholic Church Wedding & Serene Vows",
+      "category": "wedding",
+      "categoryLabel": "Ceremony",
+      "location": "Goa / Mumbai",
+      "youtubeId": "bmentBejIYc",
+      "thumbnail": "assets/images/thumb_bmentBejIYc.jpg",
+      "duration": "4:12",
+      "description": "White lace, acoustic melodies, and an ethereal exchange of vows echoed inside historic stone arches."
+    },
+    {
+      "id": "film-13",
+      "title": "Pre-wedding at Kaas Plateau | Little Things You Do | Rohit & Priyanka",
+      "couple": "Rohit & Priyanka",
+      "subtitle": "Valley of Flowers Nature Romance",
+      "category": "prewedding",
+      "categoryLabel": "Pre-Wedding",
+      "location": "Kaas Plateau, Satara",
+      "youtubeId": "hpZlmNEtkOg",
+      "thumbnail": "assets/images/thumb_hpZlmNEtkOg.jpg",
+      "duration": "4:05",
+      "description": "Wild flower meadows, mist-covered valleys, and an idyllic outdoor journey across Maharashtra's natural wonder."
+    },
+    {
+      "id": "film-14",
+      "title": "Two States Wedding in Mumbai | Intertwined | Mousomi & Pratik",
+      "couple": "Mousomi & Pratik",
+      "subtitle": "Bengali & Maharashtrian Fusion",
+      "category": "destination",
+      "categoryLabel": "Cross-Cultural",
+      "location": "Mumbai, India",
+      "youtubeId": "UquIrNp2bGE",
+      "thumbnail": "assets/images/thumb_UquIrNp2bGE.jpg",
+      "duration": "5:45",
+      "description": "Shubho Drishti meeting the Antarpat in an emotional fusion of two distinct traditions united in unconditional love."
+    },
+    {
+      "id": "film-15",
+      "title": "Pre-wedding at Sets in the City | One and Only | Sumeet & Yogita",
+      "couple": "Sumeet & Yogita",
+      "subtitle": "Vintage Glamour & Romantic Sunset",
+      "category": "prewedding",
+      "categoryLabel": "Pre-Wedding",
+      "location": "Mumbai, India",
+      "youtubeId": "jb9MWfn5oMQ",
+      "thumbnail": "assets/images/thumb_jb9MWfn5oMQ.jpg",
+      "duration": "3:28",
+      "description": "Vintage automobiles, warm twilight tones, and effortless glances that feel right out of a classic Hollywood film."
+    },
+    {
+      "id": "film-16",
+      "title": "Rameshwari & Rugved : Crazy & Crazier",
+      "couple": "Rameshwari & Rugved",
+      "subtitle": "Unapologetic Fun & Wild Baraat",
+      "category": "wedding",
+      "categoryLabel": "Wedding Story",
+      "location": "Mumbai, India",
+      "youtubeId": "HBWSOZSQzLQ",
+      "thumbnail": "assets/images/thumb_HBWSOZSQzLQ.jpg",
+      "duration": "4:15",
+      "description": "Electrifying baraat madness, uncontrollable laughter with friends, and high-energy celebrations from start to finish."
+    }
+  ],
+  "photos": [
+    {
+      "id": "photo-1",
+      "title": "The Royal Bridal Portrait",
+      "category": "bridal",
+      "categoryLabel": "Bridal Portraits",
+      "src": "assets/images/photo_bridal_portrait.jpg",
+      "couple": "Meera's Solitary Moment",
+      "location": "Udaipur, Rajasthan",
+      "caption": "A breathless silence before walking down the aisle, draped in ancestral gold zardozi."
+    },
+    {
+      "id": "photo-2",
+      "title": "The Sacred Seven Steps",
+      "category": "rituals",
+      "categoryLabel": "Rituals & Pheras",
+      "src": "assets/images/photo_sacred_pheras.jpg",
+      "couple": "Kabir & Ananya",
+      "location": "Jaipur Palace Mandap",
+      "caption": "Circling the sacred Agni kund under a canopy of fresh rajnigandha and fragrant marigolds."
+    },
+    {
+      "id": "photo-3",
+      "title": "Sun-Kissed Haldi Splashes",
+      "category": "emotions",
+      "categoryLabel": "Candid & Emotions",
+      "src": "assets/images/photo_haldi_smiles.jpg",
+      "couple": "Rhea & Siddharth",
+      "location": "Alibaug Courtyard",
+      "caption": "Golden turmeric splashes and unrestrained joy as cousins shower blessings and rose water."
+    },
+    {
+      "id": "photo-4",
+      "title": "Destination Sunset Serenade",
+      "category": "destination",
+      "categoryLabel": "Destination",
+      "src": "assets/images/photo_destination_sunset.jpg",
+      "couple": "Payal & Sumeet",
+      "location": "The Fern, Lonavala",
+      "caption": "Standing atop the Sahyadri ridge as the evening dusk turns into deep twilight lavender."
+    },
+    {
+      "id": "photo-5",
+      "title": "Regal Union & Stolen Glances",
+      "category": "bridal",
+      "categoryLabel": "Portraits",
+      "src": "assets/images/photo_couple_regal.jpg",
+      "couple": "Dev & Sanjana",
+      "location": "Mumbai Royal Opera House",
+      "caption": "An editorial silhouette honoring aristocratic grace and modern romance."
+    },
+    {
+      "id": "photo-6",
+      "title": "Sangeet Euphoria & First Dance",
+      "category": "emotions",
+      "categoryLabel": "Celebrations",
+      "src": "assets/images/photo_reception_dance.jpg",
+      "couple": "Varun & Neha",
+      "location": "Athena Banquets, Mumbai",
+      "caption": "Surrounded by cold-pyro fountains and cheers as they take center stage for their first dance."
+    },
+    {
+      "id": "photo-7",
+      "title": "The Raw Tears of Vidaai",
+      "category": "emotions",
+      "categoryLabel": "Candid & Emotions",
+      "src": "assets/images/photo_candid_tears.jpg",
+      "couple": "Pooja & Her Father",
+      "location": "South Mumbai Mandap",
+      "caption": "The bitter-sweet tenderness of farewell—unfiltered, poignant, and forever preserved."
+    },
+    {
+      "id": "photo-8",
+      "title": "Intricate Heirloom Details",
+      "category": "details",
+      "categoryLabel": "Details & Decor",
+      "src": "assets/images/photo_details_lehenga.jpg",
+      "couple": "Handcrafted Heritage",
+      "location": "Sabyasachi Heritage Suite",
+      "caption": "Hand-stitched resham embroidery, polka diamonds, and the delicate rustle of fine silk."
+    }
+  ],
+  "services": [
+    {
+      "tier": "Signature",
+      "name": "The Royal Union (Destination Wedding)",
+      "badge": "Most Sought After",
+      "summary": "Full multi-day cinema and photography coverage for destination celebrations across India and worldwide.",
+      "deliverables": [
+        "Comprehensive 3-to-4 days candid & traditional coverage",
+        "Cinematic Wedding Film (12-18 mins) in 4K resolution",
+        "Same-Day Edit / Next-Day Instagram Reel Teaser (60-90 sec)",
+        "300+ Fine-Art Retouched High-Resolution Photographs",
+        "Full ceremony uncut archive video (Pheras, Sangeet, Vows)",
+        "2 Handcrafted Italian Leather Hardcover Flushmount Albums",
+        "Licensed drone aerial cinematography team included"
+      ]
+    },
+    {
+      "tier": "Classic",
+      "name": "The Cinematic Memoir",
+      "badge": "Popular Choice",
+      "summary": "Our signature 2-day wedding film & photography package designed for couples seeking authentic candid storytelling.",
+      "deliverables": [
+        "2 days coverage (Mehendi/Sangeet + Wedding/Reception)",
+        "Highlight Film (6-8 mins) set to bespoke licensed score",
+        "Teaser trailer delivered within 72 hours for social sharing",
+        "200+ Master-edited high-res digital photographs",
+        "Private password-protected cloud gallery for 10 years",
+        "1 Heirloom Flushmount Wedding Album (40 spreads)"
+      ]
+    },
+    {
+      "tier": "Intimate",
+      "name": "Pre-Wedding Reverie",
+      "badge": "Concept Shoot",
+      "summary": "A full-day concept-driven editorial film and photo session before the grand celebrations begin.",
+      "deliverables": [
+        "Full-day shoot (up to 3 distinct locations / concept sets)",
+        "Romantic Pre-Wedding Music Video Film (3-4 mins)",
+        "60+ Magazine-grade retouched couple portraits",
+        "Styling, moodboard, and location scouting consultation",
+        "Ready-to-project cut for your Sangeet night display"
+      ]
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Choosing Rohan and his team was the best decision we made for our Goa wedding. They felt like family, completely unobtrusive yet never missed a single emotional beat. When we saw our wedding film, everyone—including my grandparents—was in happy tears.",
+      "couple": "Akshay & Payal",
+      "location": "Destination Wedding in Goa",
+      "avatar": "assets/images/thumb_9yglQHb4C7k.jpg"
+    },
+    {
+      "quote": "Rohan's eye for light and genuine human expression is unmatched. Our photos don't look like posed stock wedding shots; they feel alive, breathing with the real energy of our Gujarati celebration.",
+      "couple": "Ashish & Kanan",
+      "location": "Mumbai Wedding",
+      "avatar": "assets/images/thumb_wY5E35YFkhA.jpg"
+    },
+    {
+      "quote": "From our pre-wedding shoot at Sets in the City to our grand reception at Athena Banquets, the films were cinematic perfection. Crisp 4K audio, flawless color grading, and stories that will outlive us all.",
+      "couple": "Varun & Neha",
+      "location": "Grand Reception, Mumbai",
+      "avatar": "assets/images/thumb_edqpmO6yEZs.jpg"
+    }
+  ],
+  "faq": [
+    {
+      "q": "What is your approach and visual style?",
+      "a": "We are documentary candid storytellers at heart with a strong editorial eye. We believe reality is far more captivating than staged theatrics. We capture real laughter, spontaneous tears, and quiet glances while providing gentle direction during couple portraits."
+    },
+    {
+      "q": "Do you travel for destination weddings?",
+      "a": "Yes! Over 60% of our weddings are destination events across Udaipur, Jaipur, Goa, Kerala, Lonavala, Mussoorie, as well as international destinations including Bali, Italy, and Thailand. Travel and stay are arranged in coordination with the couple."
+    },
+    {
+      "q": "How soon do we receive our photos and films?",
+      "a": "You receive a curated 40-50 photo teaser and an Instagram video teaser within 72 hours of the event so you can celebrate online immediately. The full color-graded photo set is delivered in 4-6 weeks, and the master 4K wedding films within 8-10 weeks."
+    },
+    {
+      "q": "How do we book and secure our wedding dates?",
+      "a": "We accept a strictly limited number of weddings per year (max 25) to preserve our craft and personalized attention. A 50% advance retainer and signed service contract secures your dates on our calendar."
+    }
+  ],
+  "pressBadges": [
+    "WedMeGood WedAward Winner",
+    "WeddingSutra Top Choice 2025",
+    "Fearless Photographers Nominee",
+    "Vogue Weddings India Feature",
+    "Better Photography Excellence"
+  ]
+}
+;

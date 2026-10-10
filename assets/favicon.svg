@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5C79E" />
+      <stop offset="50%" stop-color="#C5A880" />
+      <stop offset="100%" stop-color="#9C7A4E" />
+    </linearGradient>
+  </defs>
+  <!-- Dark Circle Base -->
+  <rect width="64" height="64" rx="16" fill="#141414" />
+  <!-- Elegant Outer Border -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-opacity="0.6" />
+  <!-- Stylized Camera Aperture / Wedding Ring Icon -->
+  <circle cx="32" cy="30" r="14" fill="none" stroke="url(#goldGrad)" stroke-width="2" />
+  <circle cx="32" cy="30" r="7" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="3 2" />
+  <!-- Interlocking Diamond Ring Accent -->
+  <path d="M32 11 L35 15 L29 15 Z" fill="url(#goldGrad)" />
+  <!-- RSP Monogram Serif -->
+  <text x="32" y="54" font-family="'Cinzel', 'Playfair Display', 'Taviraj', serif" font-size="11" font-weight="600" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="2">RSP</text>
+</svg>

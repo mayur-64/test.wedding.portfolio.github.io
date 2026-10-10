@@ -1,0 +1,9 @@
+# Ignore temporary editor files and Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+*.log
+*.pid
+.vscode/
+.idea/
