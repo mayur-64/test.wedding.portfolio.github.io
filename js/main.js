@@ -1,393 +1,508 @@
 /**
  * Rohan Shinde Photography & Films (RSP)
- * Main Interactive Application Script
+ * Cinematic Editorial Motion & Interaction Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- State & DOM References ---
-  let portfolioData = null;
-  let activeFilmCategory = 'all';
-  let activePhotoCategory = 'all';
-  let currentPhotoIndex = 0;
-  let filteredPhotosList = [];
+  const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // DOM Elements
+  // --- 1. Sticky Header & Announcement Bar ---
   const header = document.querySelector('.site-header');
-  const themeToggleBtn = document.getElementById('theme-toggle-btn');
-  const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
-  const mobileOverlay = document.getElementById('mobile-nav-overlay');
-  const mobileCloseBtn = document.getElementById('mobile-close-btn');
-  const filmsContainer = document.getElementById('films-grid-container');
-  const photosContainer = document.getElementById('photos-grid-container');
-  const backToTopBtn = document.getElementById('back-to-top-btn');
+  const announceBar = document.querySelector('.announcement-bar');
+  const announceCloseBtn = document.querySelector('.announcement-close-btn');
 
-  // Video Lightbox Elements
+  announceCloseBtn?.addEventListener('click', () => {
+    announceBar?.classList.add('dismissed');
+  });
+
+  // --- 2. Mobile Bottom Sticky CTA Bar ---
+  const mobileBottomCta = document.querySelector('.mobile-sticky-cta-bar');
+  const heroSection = document.getElementById('hero');
+  const finalCtaSection = document.getElementById('final-cta');
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (scrollY > 40) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+
+    if (mobileBottomCta && heroSection && finalCtaSection) {
+      const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+      const finalCtaTop = finalCtaSection.offsetTop - window.innerHeight;
+
+      if (scrollY > heroBottom && scrollY < finalCtaTop) {
+        mobileBottomCta.classList.add('visible');
+        mobileBottomCta.classList.remove('hidden-bottom');
+      } else if (scrollY >= finalCtaTop) {
+        mobileBottomCta.classList.add('hidden-bottom');
+      } else {
+        mobileBottomCta.classList.remove('visible');
+      }
+    }
+  }, { passive: true });
+
+  // --- 3. Mobile Hamburger & Fullscreen Accordion Drawer ---
+  const hamburgerBtn = document.getElementById('mobile-hamburger-btn');
+  const mobileDrawer = document.getElementById('mobile-menu-drawer');
+
+  const toggleMobileMenu = (open) => {
+    const isOpen = open !== undefined ? open : !mobileDrawer?.classList.contains('open');
+    if (isOpen) {
+      hamburgerBtn?.classList.add('open');
+      mobileDrawer?.classList.add('open');
+      hamburgerBtn?.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    } else {
+      hamburgerBtn?.classList.remove('open');
+      mobileDrawer?.classList.remove('open');
+      hamburgerBtn?.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  };
+
+  hamburgerBtn?.addEventListener('click', () => toggleMobileMenu());
+
+  document.querySelectorAll('.mobile-submenu-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const panel = btn.nextElementSibling;
+      panel?.classList.toggle('open');
+      btn.setAttribute('aria-expanded', panel?.classList.contains('open') ? 'true' : 'false');
+    });
+  });
+
+  document.querySelectorAll('.mobile-menu-drawer a:not(.mobile-submenu-trigger)').forEach(link => {
+    link.addEventListener('click', () => toggleMobileMenu(false));
+  });
+
+  // Focus trap for mobile drawer
+  mobileDrawer?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = Array.from(mobileDrawer.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'))
+      .filter(el => el.offsetParent !== null || el === document.activeElement);
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+  });
+
+  // --- 4. Rotating Hero Word ---
+  const words = ['story', 'film', 'heirloom', 'memory'];
+  const rotatingWordElem = document.getElementById('rotating-word');
+  let currentWordIdx = 0;
+
+  if (rotatingWordElem && !isReducedMotion) {
+    setInterval(() => {
+      currentWordIdx = (currentWordIdx + 1) % words.length;
+      rotatingWordElem.textContent = words[currentWordIdx];
+    }, 2800);
+  }
+
+  // --- 5. Hero Background Video Controls ---
+  const heroVideo = document.getElementById('hero-bg-video');
+  const heroVideoBtn = document.getElementById('hero-video-toggle');
+
+  heroVideoBtn?.addEventListener('click', () => {
+    if (!heroVideo) return;
+    if (heroVideo.paused) {
+      heroVideo.play();
+      heroVideoBtn.setAttribute('aria-pressed', 'false');
+      heroVideoBtn.innerHTML = `<span>Pause video</span>`;
+    } else {
+      heroVideo.pause();
+      heroVideoBtn.setAttribute('aria-pressed', 'true');
+      heroVideoBtn.innerHTML = `<span>Play video</span>`;
+    }
+  });
+
+  // --- 6. Angled 5-Card Carousel with Custom Cursor & Touch ---
+  const angledCards = Array.from(document.querySelectorAll('.angled-card'));
+  const carouselContainer = document.querySelector('.hero-carousel-container');
+  const cursorFollow = document.getElementById('cursor-follow');
+  const carouselPauseBtn = document.getElementById('hero-carousel-pause-btn');
+
+  let activeCardIndex = 2; // Center card (0 to 4)
+  let isCarouselPaused = false;
+  let carouselAutoTimer = null;
+
+  const positions = ['pos-far-left', 'pos-left', 'pos-center', 'pos-right', 'pos-far-right'];
+
+  const updateCardPositions = () => {
+    const total = angledCards.length;
+    angledCards.forEach((card, idx) => {
+      card.className = 'angled-card';
+      const offset = (idx - activeCardIndex + total) % total;
+      if (offset === 0) card.classList.add('pos-center');
+      else if (offset === 1) card.classList.add('pos-right');
+      else if (offset === 2) card.classList.add('pos-far-right');
+      else if (offset === total - 1) card.classList.add('pos-left');
+      else card.classList.add('pos-far-left');
+    });
+  };
+
+  const nextAngledCard = () => {
+    activeCardIndex = (activeCardIndex + 1) % angledCards.length;
+    updateCardPositions();
+  };
+
+  const prevAngledCard = () => {
+    activeCardIndex = (activeCardIndex - 1 + angledCards.length) % angledCards.length;
+    updateCardPositions();
+  };
+
+  const startCarouselAuto = () => {
+    if (isReducedMotion || isCarouselPaused) return;
+    clearInterval(carouselAutoTimer);
+    carouselAutoTimer = setInterval(nextAngledCard, 5000);
+  };
+
+  if (angledCards.length > 0) {
+    updateCardPositions();
+    startCarouselAuto();
+
+    carouselPauseBtn?.addEventListener('click', () => {
+      isCarouselPaused = !isCarouselPaused;
+      carouselPauseBtn.setAttribute('aria-pressed', isCarouselPaused ? 'true' : 'false');
+      carouselPauseBtn.textContent = isCarouselPaused ? 'Play' : 'Pause';
+      if (isCarouselPaused) clearInterval(carouselAutoTimer);
+      else startCarouselAuto();
+    });
+
+    // Custom Cursor follower inside carousel
+    carouselContainer?.addEventListener('mousemove', (e) => {
+      if (!cursorFollow || isReducedMotion) return;
+      const rect = carouselContainer.getBoundingClientRect();
+      const x = e.clientX;
+      const y = e.clientY;
+      const isLeft = (x - rect.left) < rect.width / 2;
+
+      cursorFollow.style.left = `${x}px`;
+      cursorFollow.style.top = `${y}px`;
+      cursorFollow.textContent = isLeft ? 'Prev' : 'Next';
+      cursorFollow.classList.add('active');
+    });
+
+    carouselContainer?.addEventListener('mouseleave', () => {
+      cursorFollow?.classList.remove('active');
+    });
+
+    carouselContainer?.addEventListener('click', (e) => {
+      if (e.target.closest('.carousel-pause-btn')) return;
+      const rect = carouselContainer.getBoundingClientRect();
+      const isLeft = (e.clientX - rect.left) < rect.width / 2;
+      if (isLeft) prevAngledCard();
+      else nextAngledCard();
+      startCarouselAuto();
+    });
+
+    // Touch Swipe
+    let touchStartX = 0;
+    carouselContainer?.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    carouselContainer?.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 40) nextAngledCard();
+      if (touchEndX > touchStartX + 40) prevAngledCard();
+      startCarouselAuto();
+    }, { passive: true });
+  }
+
+  // --- 7. Rolling Digits Animation ---
+  const statsStrip = document.getElementById('stats-strip');
+  let statsAnimated = false;
+
+  const animateRollingDigits = () => {
+    if (statsAnimated || isReducedMotion) return;
+    statsAnimated = true;
+
+    document.querySelectorAll('.digit-column').forEach(col => {
+      const target = parseInt(col.getAttribute('data-target') || '0', 10);
+      col.style.transform = `translateY(-${target * 75}px)`;
+    });
+  };
+
+  if (statsStrip) {
+    const statsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateRollingDigits();
+        statsObserver.disconnect();
+      }
+    }, { threshold: 0.2 });
+    statsObserver.observe(statsStrip);
+  }
+
+  // --- 8. Infinite King-Carousel ---
+  const kingCards = Array.from(document.querySelectorAll('.king-card'));
+  const kingPills = Array.from(document.querySelectorAll('[data-king-tab]'));
+  const kingDots = Array.from(document.querySelectorAll('.paging-dot'));
+  const kingPauseBtn = document.getElementById('king-pause-btn');
+
+  let activeKingIdx = 0;
+  let isKingPaused = false;
+  let kingAutoTimer = null;
+
+  const setKingSlide = (index) => {
+    activeKingIdx = index;
+    kingCards.forEach((card, idx) => {
+      card.classList.toggle('active', idx === activeKingIdx);
+      card.setAttribute('aria-hidden', idx === activeKingIdx ? 'false' : 'true');
+    });
+    kingPills.forEach((pill, idx) => {
+      pill.classList.toggle('active', idx === activeKingIdx);
+    });
+    kingDots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === activeKingIdx);
+    });
+  };
+
+  const startKingAuto = () => {
+    if (isReducedMotion || isKingPaused) return;
+    clearInterval(kingAutoTimer);
+    kingAutoTimer = setInterval(() => {
+      setKingSlide((activeKingIdx + 1) % kingCards.length);
+    }, 6000);
+  };
+
+  if (kingCards.length > 0) {
+    setKingSlide(0);
+    startKingAuto();
+
+    kingPills.forEach((pill, idx) => {
+      pill.addEventListener('click', () => {
+        setKingSlide(idx);
+        startKingAuto();
+      });
+    });
+
+    kingDots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        setKingSlide(idx);
+        startKingAuto();
+      });
+    });
+
+    kingPauseBtn?.addEventListener('click', () => {
+      isKingPaused = !isKingPaused;
+      kingPauseBtn.setAttribute('aria-pressed', isKingPaused ? 'true' : 'false');
+      kingPauseBtn.textContent = isKingPaused ? 'Play' : 'Pause';
+      if (isKingPaused) clearInterval(kingAutoTimer);
+      else startKingAuto();
+    });
+  }
+
+  // --- 9. Horizontal Experience Carousel Navigation ---
+  const expTrack = document.getElementById('experience-track');
+  const expPrevBtn = document.getElementById('exp-prev-btn');
+  const expNextBtn = document.getElementById('exp-next-btn');
+
+  expPrevBtn?.addEventListener('click', () => {
+    expTrack?.scrollBy({ left: -320, behavior: 'smooth' });
+  });
+
+  expNextBtn?.addEventListener('click', () => {
+    expTrack?.scrollBy({ left: 320, behavior: 'smooth' });
+  });
+
+  expTrack?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      expTrack.scrollBy({ left: -320, behavior: 'smooth' });
+    } else if (e.key === 'ArrowRight') {
+      expTrack.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+  });
+
+  // --- 10. Choose Your Style Selection ---
+  const styleCards = document.querySelectorAll('.style-scroll-card');
+  const styleCta = document.getElementById('start-style-cta');
+  let selectedStyle = 'Timeless';
+
+  styleCards.forEach(card => {
+    card.addEventListener('click', () => {
+      styleCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      selectedStyle = card.getAttribute('data-style') || 'Timeless';
+      if (styleCta) {
+        styleCta.textContent = `Start with ${selectedStyle} Style →`;
+      }
+    });
+  });
+
+  styleCta?.addEventListener('click', () => {
+    const locInput = document.getElementById('inq-location');
+    if (locInput) locInput.value = `${selectedStyle} Style preferred`;
+    document.getElementById('check-date')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // --- 11. Date Checker Form (WhatsApp Direct Linking) ---
+  const dateForm = document.getElementById('date-checker-form');
+  dateForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const dateVal = document.getElementById('inq-date')?.value || '';
+    const locVal = document.getElementById('inq-location')?.value || '';
+
+    const text = encodeURIComponent(
+      `Hello Rohan! We would like to check availability for our wedding on ${dateVal} in ${locVal}.`
+    );
+    window.open(`https://wa.me/919820012345?text=${text}`, '_blank');
+  });
+
+  // --- 12. Pointer Tilt on "Made of moments" Mosaic ---
+  const mosaicSection = document.querySelector('.mosaic-section');
+  const mosaicTilt = document.querySelector('.mosaic-tilt-container');
+
+  if (mosaicSection && mosaicTilt && !isReducedMotion) {
+    mosaicSection.addEventListener('mousemove', (e) => {
+      const rect = mosaicSection.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+
+      mosaicTilt.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    mosaicSection.addEventListener('mouseleave', () => {
+      mosaicTilt.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+  }
+
+  // --- 13. Accordions (45deg +/× rotating, smooth height) ---
+  document.querySelectorAll('.accordion-trigger-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.accordion-item');
+      const isOpen = item?.classList.contains('open');
+
+      // Close siblings within the same group
+      const group = item?.parentElement;
+      group?.querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.accordion-trigger-btn')?.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        item?.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // --- 14. Video & Photo Modals ---
   const videoModal = document.getElementById('video-modal');
   const videoIframe = document.getElementById('lightbox-iframe');
   const videoTitle = document.getElementById('lightbox-video-title');
   const videoMeta = document.getElementById('lightbox-video-meta');
   const videoCloseBtn = document.getElementById('lightbox-close-btn');
 
-  // Photo Lightbox Elements
   const photoModal = document.getElementById('photo-modal');
   const photoImg = document.getElementById('photo-lightbox-img');
   const photoCaptionTitle = document.getElementById('photo-lightbox-title');
   const photoCaptionSub = document.getElementById('photo-lightbox-sub');
-  const photoPrevBtn = document.getElementById('photo-prev-btn');
-  const photoNextBtn = document.getElementById('photo-next-btn');
   const photoCloseBtn = document.getElementById('photo-close-btn');
 
-  // Form Elements
-  const inquiryForm = document.getElementById('wedding-inquiry-form');
-  const formStatus = document.getElementById('form-status-alert');
-  const whatsappCta = document.getElementById('whatsapp-direct-link');
-
-  // --- Theme Management ---
-  const savedTheme = localStorage.getItem('rsp-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  updateThemeIcon(savedTheme);
-
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const nextTheme = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', nextTheme);
-      localStorage.setItem('rsp-theme', nextTheme);
-      updateThemeIcon(nextTheme);
-    });
-  }
-
-  function updateThemeIcon(theme) {
-    if (!themeToggleBtn) return;
-    themeToggleBtn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'Light Ivory' : 'Dark Luxe'} Mode`);
-    themeToggleBtn.innerHTML = theme === 'dark'
-      ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`
-      : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
-  }
-
-  // --- Sticky Header & Back To Top ---
-  window.addEventListener('scroll', () => {
-    const scrollPos = window.scrollY;
-    if (scrollPos > 60) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
-    }
-
-    if (scrollPos > 400) {
-      backToTopBtn?.classList.add('visible');
-    } else {
-      backToTopBtn?.classList.remove('visible');
-    }
-  }, { passive: true });
-
-  backToTopBtn?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // --- Mobile Navigation Overlay ---
-  if (mobileToggleBtn && mobileOverlay) {
-    mobileToggleBtn.addEventListener('click', () => {
-      mobileOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-
-    const closeOverlay = () => {
-      mobileOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-    };
-
-    mobileCloseBtn?.addEventListener('click', closeOverlay);
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-      link.addEventListener('click', closeOverlay);
-    });
-  }
-
-  // --- Fetch / Initialize Data ---
-  if (window.EMBEDDED_PORTFOLIO_DATA) {
-    portfolioData = window.EMBEDDED_PORTFOLIO_DATA;
-    renderFilms();
-    renderPhotos();
-    initFilters();
-    initFAQ();
-  } else {
-    fetch('data/portfolio_data.json')
-      .then(res => {
-        if (!res.ok) throw new Error('Network error loading data');
-        return res.json();
-      })
-      .then(data => {
-        portfolioData = data;
-        renderFilms();
-        renderPhotos();
-        initFilters();
-        initFAQ();
-      })
-      .catch(err => {
-        console.warn('Fallback data loading error:', err);
-      });
-  }
-
-  // --- Render Wedding Films Grid ---
-  function renderFilms() {
-    if (!filmsContainer || !portfolioData) return;
-    const { films } = portfolioData;
-    const filtered = activeFilmCategory === 'all'
-      ? films
-      : films.filter(f => f.category === activeFilmCategory);
-
-    filmsContainer.innerHTML = '';
-
-    filtered.forEach(film => {
-      const card = document.createElement('article');
-      card.className = 'film-card';
-      card.setAttribute('data-id', film.id);
-      card.setAttribute('data-youtube', film.youtubeId);
-
-      card.innerHTML = `
-        <div class="film-thumbnail-wrapper" role="button" tabindex="0" aria-label="Watch ${film.title}">
-          <img class="film-thumbnail-img" src="${film.thumbnail}" alt="${film.title}" loading="lazy">
-          <div class="film-overlay-gradient"></div>
-          <span class="film-badge-category">${film.categoryLabel}</span>
-          <span class="film-badge-duration">${film.duration}</span>
-          <div class="film-play-trigger">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          </div>
-        </div>
-        <div class="film-info-body">
-          <div class="film-location-row">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            <span>${film.location}</span>
-          </div>
-          <h3 class="film-title-heading">${film.title}</h3>
-          <p class="film-description-text">${film.description}</p>
-          <div class="film-card-footer">
-            <span class="film-watch-link">
-              <span>Play Cinema Film</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </span>
-          </div>
-        </div>
-      `;
-
-      // Trigger video modal on click or Enter key
-      const thumb = card.querySelector('.film-thumbnail-wrapper');
-      const watchLink = card.querySelector('.film-watch-link');
-      const openAction = () => openVideoLightbox(film);
-
-      thumb.addEventListener('click', openAction);
-      watchLink.addEventListener('click', openAction);
-      thumb.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openAction();
-        }
-      });
-
-      filmsContainer.appendChild(card);
-    });
-  }
-
-  // --- Video Modal Controls ---
-  function openVideoLightbox(film) {
+  const openVideoModal = (youtubeId, title, meta) => {
     if (!videoModal || !videoIframe) return;
-    videoIframe.src = `https://www.youtube.com/embed/${film.youtubeId}?autoplay=1&rel=0&modestbranding=1`;
-    videoTitle.textContent = film.title;
-    videoMeta.textContent = `${film.categoryLabel} • ${film.location} • Runtime: ${film.duration}`;
+    videoIframe.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`;
+    if (videoTitle) videoTitle.textContent = title;
+    if (videoMeta) videoMeta.textContent = meta;
     videoModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    videoCloseBtn?.focus();
-  }
+  };
 
-  function closeVideoLightbox() {
+  const closeVideoModal = () => {
     if (!videoModal || !videoIframe) return;
     videoModal.classList.remove('active');
     videoIframe.src = '';
     document.body.style.overflow = '';
-  }
+  };
 
-  videoCloseBtn?.addEventListener('click', closeVideoLightbox);
+  videoCloseBtn?.addEventListener('click', closeVideoModal);
   videoModal?.addEventListener('click', (e) => {
-    if (e.target === videoModal) closeVideoLightbox();
+    if (e.target === videoModal) closeVideoModal();
   });
 
-  // --- Render Photography Portfolio Grid ---
-  function renderPhotos() {
-    if (!photosContainer || !portfolioData) return;
-    const { photos } = portfolioData;
-    filteredPhotosList = activePhotoCategory === 'all'
-      ? photos
-      : photos.filter(p => p.category === activePhotoCategory);
-
-    photosContainer.innerHTML = '';
-
-    filteredPhotosList.forEach((photo, idx) => {
-      const card = document.createElement('div');
-      card.className = 'photo-card';
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('aria-label', `View ${photo.title}`);
-
-      card.innerHTML = `
-        <img class="photo-card-img" src="${photo.src}" alt="${photo.title}" loading="lazy">
-        <div class="photo-overlay">
-          <span class="photo-overlay-tag">${photo.categoryLabel}</span>
-          <h4 class="photo-overlay-title">${photo.title}</h4>
-          <span class="photo-overlay-location">${photo.location}</span>
-        </div>
-      `;
-
-      const openPhoto = () => openPhotoLightbox(idx);
-      card.addEventListener('click', openPhoto);
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openPhoto();
-        }
-      });
-
-      photosContainer.appendChild(card);
-    });
-  }
-
-  // --- Photo Lightbox Controls ---
-  function openPhotoLightbox(index) {
-    if (!photoModal || !filteredPhotosList.length) return;
-    currentPhotoIndex = index;
-    updatePhotoLightboxContent();
+  const openPhotoModal = (src, title, caption) => {
+    if (!photoModal || !photoImg) return;
+    photoImg.src = src;
+    photoImg.alt = title;
+    if (photoCaptionTitle) photoCaptionTitle.textContent = title;
+    if (photoCaptionSub) photoCaptionSub.textContent = caption;
     photoModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-  }
+  };
 
-  function updatePhotoLightboxContent() {
-    const item = filteredPhotosList[currentPhotoIndex];
-    if (!item) return;
-    photoImg.src = item.src;
-    photoImg.alt = item.title;
-    photoCaptionTitle.textContent = item.title;
-    photoCaptionSub.textContent = `${item.categoryLabel} • ${item.location} — "${item.caption}"`;
-  }
-
-  function closePhotoLightbox() {
+  const closePhotoModal = () => {
     if (!photoModal) return;
     photoModal.classList.remove('active');
     document.body.style.overflow = '';
-  }
+  };
 
-  photoPrevBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    currentPhotoIndex = (currentPhotoIndex - 1 + filteredPhotosList.length) % filteredPhotosList.length;
-    updatePhotoLightboxContent();
-  });
-
-  photoNextBtn?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    currentPhotoIndex = (currentPhotoIndex + 1) % filteredPhotosList.length;
-    updatePhotoLightboxContent();
-  });
-
-  photoCloseBtn?.addEventListener('click', closePhotoLightbox);
+  photoCloseBtn?.addEventListener('click', closePhotoModal);
   photoModal?.addEventListener('click', (e) => {
-    if (e.target === photoModal) closePhotoLightbox();
+    if (e.target === photoModal) closePhotoModal();
   });
 
-  // Keyboard navigation for modals
+  // Bind video trigger elements
+  document.querySelectorAll('[data-youtube-id]').forEach(elem => {
+    elem.addEventListener('click', (e) => {
+      e.preventDefault();
+      const yId = elem.getAttribute('data-youtube-id');
+      const title = elem.getAttribute('data-video-title') || 'Wedding Film';
+      const meta = elem.getAttribute('data-video-meta') || 'RSP Cinema';
+      openVideoModal(yId, title, meta);
+    });
+  });
+
+  // Bind photo trigger elements
+  document.querySelectorAll('[data-photo-src]').forEach(elem => {
+    elem.addEventListener('click', (e) => {
+      e.preventDefault();
+      const src = elem.getAttribute('data-photo-src');
+      const title = elem.getAttribute('data-photo-title') || 'Wedding Moment';
+      const caption = elem.getAttribute('data-photo-caption') || '';
+      openPhotoModal(src, title, caption);
+    });
+  });
+
+  // Escape key global listener
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      if (videoModal?.classList.contains('active')) closeVideoLightbox();
-      if (photoModal?.classList.contains('active')) closePhotoLightbox();
-    }
-    if (photoModal?.classList.contains('active')) {
-      if (e.key === 'ArrowLeft') photoPrevBtn?.click();
-      if (e.key === 'ArrowRight') photoNextBtn?.click();
+      closeVideoModal();
+      closePhotoModal();
+      toggleMobileMenu(false);
     }
   });
 
-  // --- Filter Bar Initialization ---
-  function initFilters() {
-    // Film Filters
-    document.querySelectorAll('[data-film-filter]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-film-filter]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeFilmCategory = btn.getAttribute('data-film-filter');
-        renderFilms();
-      });
-    });
-
-    // Photo Filters
-    document.querySelectorAll('[data-photo-filter]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('[data-photo-filter]').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activePhotoCategory = btn.getAttribute('data-photo-filter');
-        renderPhotos();
-      });
-    });
-  }
-
-  // --- FAQ Accordion ---
-  function initFAQ() {
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      const btn = item.querySelector('.faq-question-btn');
-      btn?.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        faqItems.forEach(i => i.classList.remove('active'));
-        if (!isActive) {
-          item.classList.add('active');
+  // --- 15. Intersection Observer Reveal Blocks ---
+  const revealElements = document.querySelectorAll('.reveal-block, .reveal-stagger');
+  if (!isReducedMotion) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
         }
       });
-    });
-  }
+    }, { threshold: 0.15 });
 
-  // --- Wedding Inquiry Form & WhatsApp Generator ---
-  if (inquiryForm) {
-    inquiryForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const coupleNames = document.getElementById('inq-names')?.value || '';
-      const weddingDate = document.getElementById('inq-date')?.value || '';
-      const venueCity = document.getElementById('inq-city')?.value || '';
-      const service = document.getElementById('inq-service')?.value || 'Full Photo & Cinema';
-      const guestCount = document.getElementById('inq-guests')?.value || '';
-      const phone = document.getElementById('inq-phone')?.value || '';
-      const message = document.getElementById('inq-message')?.value || '';
-
-      // Construct WhatsApp Direct Message
-      const waText = encodeURIComponent(
-        `Hello Rohan! We would love to check availability for our wedding.\n\n` +
-        `• Couple: ${coupleNames}\n` +
-        `• Date: ${weddingDate}\n` +
-        `• Venue / City: ${venueCity}\n` +
-        `• Services: ${service}\n` +
-        `• Est. Guests: ${guestCount}\n` +
-        `• Contact: ${phone}\n` +
-        `• Notes: ${message}`
-      );
-
-      const waUrl = `https://wa.me/919820012345?text=${waText}`;
-
-      if (formStatus) {
-        formStatus.className = 'form-status-alert success';
-        formStatus.innerHTML = `
-          <strong>Thank you, ${coupleNames}!</strong> Your wedding inquiry has been received.<br>
-          We will review our calendar and reply within 24 hours. You can also chat directly with Rohan:
-          <div style="margin-top: 0.75rem;">
-            <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="btn whatsapp-direct-btn" style="padding: 0.5rem 1.2rem; font-size: 0.82rem;">
-              Open Inquiry in WhatsApp
-            </a>
-          </div>
-        `;
-        formStatus.style.display = 'block';
-        formStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-
-      // Update whatsapp CTA link
-      if (whatsappCta) {
-        whatsappCta.href = waUrl;
-      }
-
-      inquiryForm.reset();
-    });
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    revealElements.forEach(el => el.classList.add('revealed'));
   }
 });

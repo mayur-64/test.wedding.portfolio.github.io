@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mayur-64.github.io/test.wedding.portfolio.github.io/sitemap.xml

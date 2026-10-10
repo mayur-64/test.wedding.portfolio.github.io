@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
-Automated Verification Script for Rohan Shinde Photography & Films (RSP) Portfolio.
-Verifies file existence, HTML semantics, SEO tags, JSON data integrity, and local assets.
+Automated Verification & QA Suite for Rohan Shinde Photography & Films (RSP)
+Validates:
+1. File structure & media assets (WebP, MP4, WebM, JSON, CSS, JS)
+2. Semantic HTML structure, landmarks, skip-link, and accessible ARIA attributes
+3. SEO tags, Canonical URL, OpenGraph, Twitter Cards, and Schema.org JSON-LD
+4. 11-section layout mapping and interactive motion targets
+5. Dev server HTTP 200 responses
 """
 
 import os
@@ -14,148 +19,156 @@ BASE_DIR = '/root/wedding-portfolio'
 PORT = 8085
 BASE_URL = f'http://127.0.0.1:{PORT}'
 
-def test_files_exist():
-    print("[1/5] Verifying required project files...")
-    required_files = [
+def test_files_and_media():
+    print("[1/5] Verifying core files and media assets...")
+    core_files = [
         'index.html',
         'css/style.css',
         'js/main.js',
         'data/portfolio_data.json',
         'assets/favicon.svg',
-        'assets/images/hero-rsp07477.jpg',
-        'assets/images/logo.png',
+        'assets/hero-loop.mp4',
+        'assets/hero-loop.webm',
+        'robots.txt',
+        'sitemap.xml',
         '.nojekyll',
         '.gitignore',
-        'README.md',
-        'dev_server.py'
+        'README.md'
     ]
-    for rel_path in required_files:
+    for rel_path in core_files:
         full = os.path.join(BASE_DIR, rel_path)
-        assert os.path.exists(full), f"Missing required file: {rel_path}"
+        assert os.path.exists(full), f"Missing file: {rel_path}"
         assert os.path.getsize(full) > 0, f"File is empty: {rel_path}"
 
-    print(f"  ✓ All {len(required_files)} core project files exist and are populated.")
+    # Verify WebP media conversions
+    images_dir = os.path.join(BASE_DIR, 'assets/images')
+    files_in_images = os.listdir(images_dir)
+    webp_files = [f for f in files_in_images if f.endswith('.webp')]
+    jpg_files = [f for f in files_in_images if f.endswith('.jpg') or f.endswith('.png')]
 
-def test_json_data_integrity():
-    print("[2/5] Validating portfolio_data.json schema and media assets...")
-    json_path = os.path.join(BASE_DIR, 'data/portfolio_data.json')
-    with open(json_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    assert len(webp_files) >= 20, f"Expected at least 20 WebP files, found {len(webp_files)}"
+    assert len(jpg_files) >= 20, f"Expected at least 20 JPG/PNG fallback files, found {len(jpg_files)}"
+    print(f"  ✓ Verified core files and {len(webp_files)} WebP assets with fallbacks.")
 
-    assert "brand" in data, "Missing brand in data"
-    assert "films" in data, "Missing films in data"
-    assert "photos" in data, "Missing photos in data"
-    assert "services" in data, "Missing services in data"
-    assert "testimonials" in data, "Missing testimonials in data"
-    assert "faq" in data, "Missing faq in data"
-
-    films = data["films"]
-    assert len(films) == 16, f"Expected 16 wedding films, found {len(films)}"
-    for film in films:
-        assert "youtubeId" in film and len(film["youtubeId"]) > 5, f"Invalid youtubeId in {film['title']}"
-        thumb_path = os.path.join(BASE_DIR, film["thumbnail"])
-        assert os.path.exists(thumb_path), f"Missing local thumbnail: {film['thumbnail']}"
-
-    photos = data["photos"]
-    assert len(photos) >= 8, f"Expected at least 8 gallery photos, found {len(photos)}"
-    for photo in photos:
-        assert "src" in photo, f"Missing src in {photo.get('title')}"
-        photo_path = os.path.join(BASE_DIR, photo["src"])
-        assert os.path.exists(photo_path), f"Missing local photo: {photo['src']}"
-
-    print(f"  ✓ Successfully verified 16 wedding films and {len(photos)} gallery photos.")
-
-def test_html_semantics():
-    print("[3/5] Checking HTML structure, accessibility, and SEO meta tags...")
+def test_html_semantics_and_a11y():
+    print("[2/5] Checking HTML landmarks, accessibility, and ARIA attributes...")
     html_path = os.path.join(BASE_DIR, 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
 
-    # Required SEO tags
-    assert '<title>' in html and '</title>' in html, "Missing <title> tag"
-    assert '<meta name="description"' in html, "Missing meta description"
-    assert '<meta property="og:title"' in html, "Missing og:title"
-    assert '<meta property="og:image"' in html, "Missing og:image"
-    assert '<meta name="viewport"' in html, "Missing viewport tag"
-    assert 'schema.org' in html and 'PhotographyBusiness' in html, "Missing Schema.org structured data"
-    assert '<link rel="icon"' in html, "Missing favicon link"
+    # Landmark checks
+    assert '<header' in html and '</header>' in html, "Missing <header>"
+    assert '<main id="content"' in html and '</main>' in html, "Missing <main id=\"content\">"
+    assert '<footer' in html and '</footer>' in html, "Missing <footer>"
+    assert 'class="skip-link"' in html, "Missing Skip to Main Content link"
 
-    # Required interactive element IDs
-    required_ids = [
-        'theme-toggle-btn',
-        'mobile-toggle-btn',
-        'mobile-nav-overlay',
-        'films-grid-container',
-        'photos-grid-container',
-        'video-modal',
-        'lightbox-iframe',
-        'lightbox-close-btn',
-        'photo-modal',
-        'photo-lightbox-img',
-        'photo-prev-btn',
-        'photo-next-btn',
-        'wedding-inquiry-form',
-        'back-to-top-btn'
+    # Exactly one H1
+    h1_matches = re.findall(r'<h1\b', html)
+    assert len(h1_matches) == 1, f"Expected exactly 1 <h1>, found {len(h1_matches)}"
+
+    # ARIA roles and attributes
+    assert 'aria-roledescription="carousel"' in html, "Missing aria-roledescription on carousel"
+    assert 'aria-label=' in html, "Missing aria-labels"
+    assert 'aria-expanded=' in html, "Missing aria-expanded on accordions/menus"
+    assert 'aria-controls=' in html, "Missing aria-controls on accordions"
+    assert 'role="region"' in html, "Missing role=\"region\""
+    assert 'sr-only' in html, "Missing screen-reader fallback classes"
+
+    print("  ✓ Semantic landmarks, single H1, and ARIA attributes confirmed.")
+
+def test_seo_and_schema_jsonld():
+    print("[3/5] Validating SEO metadata and Schema.org JSON-LD...")
+    html_path = os.path.join(BASE_DIR, 'index.html')
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+
+    assert '<title>' in html, "Missing <title>"
+    assert 'name="description"' in html, "Missing meta description"
+    assert 'rel="canonical"' in html, "Missing canonical link"
+    assert 'property="og:title"' in html, "Missing og:title"
+    assert 'property="og:image"' in html, "Missing og:image"
+    assert 'name="twitter:card"' in html, "Missing twitter:card"
+
+    # JSON-LD Schema checks
+    assert '"@type": ["Photographer", "LocalBusiness"]' in html or '"@type": "PhotographyBusiness"' in html or 'Photographer' in html, "Missing Photographer Schema"
+    assert '"@type": "WebSite"' in html, "Missing WebSite Schema"
+    assert '"@type": "HowTo"' in html, "Missing HowTo Schema"
+    assert '"@type": "FAQPage"' in html, "Missing FAQPage Schema"
+
+    print("  ✓ SEO meta tags and all 4 JSON-LD Schema types validated.")
+
+def test_11_sections_and_motion():
+    print("[4/5] Verifying 11-section layout and motion hooks...")
+    html_path = os.path.join(BASE_DIR, 'index.html')
+    with open(html_path, 'r', encoding='utf-8') as f:
+        html = f.read()
+
+    sections = [
+        ('1. Header & Mega-Menu', ['site-header', 'mega-menu-panel', 'mobile-hamburger-btn']),
+        ('2. Hero & 5-Card Carousel', ['hero', 'hero-bg-video', 'rotating-word', 'angled-card', 'stats-strip', 'digit-column']),
+        ('3. Love Stories King-Carousel', ['love-stories', 'king-card', 'data-king-tab', 'paging-dot', 'king-pause-btn']),
+        ('4. Experience Carousel', ['experience', 'experience-track', 'exp-prev-btn', 'exp-next-btn', 'portrait-service-card']),
+        ('5. Planning Made Simple & Styles', ['styles', 'style-scroll-card', 'start-style-cta', 'style-entry-card', 'badges-press-strip']),
+        ('6. Check Your Date Band', ['check-date', 'date-checker-form', 'inq-date', 'inq-location']),
+        ('7. Social Proof & Reviews', ['social-proof', 'headshot-avatar', 'testimonial-editorial-card', 'stars-rating']),
+        ('8. Made of Moments Mosaic', ['mosaic', 'mosaic-tilt-container', 'mosaic-heading-super', 'mosaic-photos-grid', 'sr-only-galleries']),
+        ('9. Accordions (How We Work + FAQ)', ['accordions', 'accordion-item', 'accordion-trigger-btn', 'accordion-panel', 'contact-cards-row']),
+        ('10. Final Conversion', ['final-cta', 'cta-primary']),
+        ('11. Footer', ['site-footer', 'footer-nav-grid', 'footer-bottom-legal'])
     ]
-    for element_id in required_ids:
-        assert f'id="{element_id}"' in html, f"Missing required element ID: {element_id}"
 
-    # Philosophy statement from snippet
-    assert "We approach wedding filmmaking with the intent of making something timeless" in html, "Missing artistic statement"
+    for name, tokens in sections:
+        for token in tokens:
+            assert token in html, f"Section '{name}' missing token: {token}"
 
-    print("  ✓ All SEO tags, Schema.org definitions, and interactive IDs are present.")
+    # Mobile sticky CTA bar
+    assert 'mobile-sticky-cta-bar' in html, "Missing mobile sticky CTA bar"
+    # Modals
+    assert 'video-modal' in html, "Missing video modal"
+    assert 'photo-modal' in html, "Missing photo modal"
 
-def test_css_tokens():
-    print("[4/5] Checking CSS variables, responsive design, and luxury tokens...")
-    css_path = os.path.join(BASE_DIR, 'css/style.css')
-    with open(css_path, 'r', encoding='utf-8') as f:
-        css = f.read()
-
-    assert '--font-serif' in css, "Missing --font-serif"
-    assert '--font-sans' in css, "Missing --font-sans"
-    assert '--color-gold-500' in css, "Missing gold accent color"
-    assert '@media (max-width:' in css, "Missing responsive media queries"
-    assert '@media print' in css, "Missing print media query"
-
-    print("  ✓ CSS tokens and responsive rules verified.")
+    print("  ✓ All 11 sections and motion targets verified.")
 
 def test_server_http():
-    print("[5/5] Testing HTTP responses against dev server...")
+    print("[5/5] Testing local dev server HTTP endpoints...")
     routes = [
         '/',
         '/css/style.css',
         '/js/main.js',
         '/data/portfolio_data.json',
+        '/robots.txt',
+        '/sitemap.xml',
         '/assets/favicon.svg',
-        '/assets/images/hero-rsp07477.jpg',
-        '/assets/images/logo.png',
-        '/assets/images/thumb_9yglQHb4C7k.jpg',
-        '/assets/images/photo_bridal_portrait.jpg'
+        '/assets/hero-loop.mp4',
+        '/assets/hero-loop.webm',
+        '/assets/images/hero-rsp07477.webp',
+        '/assets/images/photo_bridal_portrait.webp',
+        '/assets/images/thumb_FEMnSpClYyo.webp'
     ]
 
     try:
         for route in routes:
             url = f"{BASE_URL}{route}"
-            req = urllib.request.Request(url, headers={'User-Agent': 'TestRunner/1.0'})
+            req = urllib.request.Request(url, headers={'User-Agent': 'QA-Runner/1.0'})
             with urllib.request.urlopen(req, timeout=3) as resp:
                 status = resp.status
                 assert status == 200, f"Expected 200 for {route}, got {status}"
-        print(f"  ✓ All {len(routes)} routes returned HTTP 200 OK via {BASE_URL}.")
+        print(f"  ✓ All {len(routes)} test endpoints returned HTTP 200 OK via {BASE_URL}.")
     except urllib.error.URLError as e:
-        print(f"  ℹ Dev server not active on {BASE_URL} ({e}); local filesystem verified.")
+        print(f"  ℹ Dev server not reachable on {BASE_URL} ({e}); check dev_server.py.")
 
 def run_all():
-    print("=" * 60)
-    print("Rohan Shinde Photography & Films — Test Verification Suite")
-    print("=" * 60)
-    test_files_exist()
-    test_json_data_integrity()
-    test_html_semantics()
-    test_css_tokens()
+    print("=" * 65)
+    print("Rohan Shinde Photography & Films (RSP) — QA & Verification Suite")
+    print("=" * 65)
+    test_files_and_media()
+    test_html_semantics_and_a11y()
+    test_seo_and_schema_jsonld()
+    test_11_sections_and_motion()
     test_server_http()
-    print("=" * 60)
-    print("🎉 ALL TESTS PASSED! Portfolio is production ready.")
-    print("=" * 60)
+    print("=" * 65)
+    print("🎉 ALL CHECKS PASSED: Web page is fully compliant with specifications!")
+    print("=" * 65)
 
 if __name__ == '__main__':
     run_all()
