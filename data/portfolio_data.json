@@ -1,406 +1,223 @@
 {
   "brand": {
-    "name": "Julian Vance Photography & Cinema",
-    "shortName": "JV",
-    "tagline": "Timeless wedding cinema & fine-art photography, captured with honesty and editorial grace",
-    "description": "International award-winning wedding photography and cinematography studio based in Paris & New York, commissioned worldwide across Lake Como, Amalfi Coast, Provence, Cotswolds, and luxury private estates.",
-    "location": "Paris, France & New York, USA",
-    "founded": "2016",
-    "weddingsDocumented": "250+",
-    "countriesCovered": "18+",
-    "awardsCount": "14+",
-    "email": "inquiries@julianvance.com",
-    "phone": "+1 (212) 555-0198",
-    "whatsapp": "+12125550198",
-    "instagram": "https://www.instagram.com/julianvancestudios",
-    "facebook": "https://www.facebook.com/julianvancephotography",
-    "youtube": "https://www.youtube.com/@julianvancefilms",
-    "heroImage": "assets/images/hero_foreign.jpg",
-    "logo": "assets/images/logo.png"
+    "name": "Robin Goodlad Photography",
+    "shortName": "Robin Goodlad",
+    "tagline": "real moments, creatively captured",
+    "subtitle": "Dorset Wedding Photographer | UK & Destination",
+    "accolade": "Named Rangefinder 30 Rising Stars of Wedding Photography in the World",
+    "description": "Authentic, observational wedding storytelling for adventurous souls who value genuine moments over staged poses. Based in Wimborne, Dorset, photographing across the South West, UK and destination celebrations.",
+    "location": "Wimborne, Dorset, United Kingdom",
+    "streetAddress": "21 Greenhill Close",
+    "locality": "Wimborne",
+    "region": "Dorset",
+    "postalCode": "BH21 2RQ",
+    "country": "United Kingdom",
+    "phone": "01202 282728",
+    "mobile": "07970 704592",
+    "email": "robin@robingoodlad.com",
+    "experienceYears": "15+",
+    "weddingsCount": "500+",
+    "instagram": "https://www.instagram.com/robin_goodlad_photography/",
+    "facebook": "https://www.facebook.com/Robin-Goodlad-Photography-114443895181/",
+    "awards": [
+      "Rangefinder 30 Rising Stars in the World",
+      "Fearless Photographers Top 15 in the UK",
+      "Fellow of the Master Photographers Association (FMPA)",
+      "British Photography Awards Finalist"
+    ]
   },
-  "statement": {
-    "title": "Timeless Fine-Art Storytelling",
-    "quote": "We approach wedding cinema and photography with the intent of creating something timeless—an heirloom that carries the atmosphere and unspoken intimacy of your day across generations. We capture truth in its most exquisite light, rather than staging moments for manufactured trends. Couples who commission us value quiet luxury, candid emotion, and editorial poise."
-  },
-  "films": [
+  "pillars": [
     {
-      "id": "film-1",
-      "title": "Camille & Henri | A Parisian Romance | Chateau de Villette, France",
-      "couple": "Camille & Henri",
-      "subtitle": "Chateau Elegance & Candlelit Courtyard",
-      "category": "destination",
-      "categoryLabel": "Chateau Wedding",
-      "location": "Chateau de Villette, France",
-      "youtubeId": "FEMnSpClYyo",
-      "thumbnail": "assets/images/film_01_paris.jpg",
-      "duration": "4:15",
-      "description": "Golden light filtering through 17th-century French stone arches, black-tie courtyard dinner, and classical quartet melodies."
+      "tag": "FOR THOSE",
+      "title": "Authentic Moments",
+      "subtitle": "Unscripted, documentary coverage",
+      "description": "Observational wedding storytelling capturing candid tears, eruptive belly laughs, quiet glances, and real human connection without stage direction or interruptions.",
+      "image": "assets/images/dorset/pillar_authentic.webp",
+      "fallbackImage": "assets/images/dorset/pillar_authentic.jpg"
     },
     {
-      "id": "film-2",
-      "title": "Elena & Matteo | La Dolce Vita | Villa Balbiano, Lake Como",
-      "couple": "Elena & Matteo",
-      "subtitle": "Riva Boat Arrival & Lakeside Vows",
-      "category": "destination",
-      "categoryLabel": "Destination Wedding",
-      "location": "Villa Balbiano, Lake Como, Italy",
-      "youtubeId": "9yglQHb4C7k",
-      "thumbnail": "assets/images/film_02_como.jpg",
-      "duration": "5:32",
-      "description": "Cypress gardens, wooden vintage boat cruise across calm waters, and an ethereal lakeside dinner under fairy lights."
+      "tag": "AND BEAUTIFUL",
+      "title": "‘Two Of You’ photos",
+      "subtitle": "Relaxed, unposed couple portraits",
+      "description": "You want natural photos and may feel uneasy about stiff posing. Why should photos of you together be awkward? It’s simply a 15-minute breather where you catch your breath as newlyweds in golden light.",
+      "image": "assets/images/dorset/pillar_two_of_you.webp",
+      "fallbackImage": "assets/images/dorset/pillar_two_of_you.jpg"
     },
     {
-      "id": "film-3",
-      "title": "Charlotte & William | Golden Hour in the Cotswolds | Aynhoe Park, UK",
-      "couple": "Charlotte & William",
-      "subtitle": "English Countryside Estate & Black Tie",
-      "category": "wedding",
-      "categoryLabel": "Estate Wedding",
-      "location": "Aynhoe Park, Oxfordshire, UK",
-      "youtubeId": "wY5E35YFkhA",
-      "thumbnail": "assets/images/film_03_cotswolds.jpg",
-      "duration": "4:48",
-      "description": "Wildflower meadows, historic library cocktail hour, and spontaneous champagne toasts under the British sunset."
-    },
-    {
-      "id": "film-4",
-      "title": "Isabella & Lucas | Cliffside Reverie | Ravello, Amalfi Coast",
-      "couple": "Isabella & Lucas",
-      "subtitle": "Bougainvillea Terraces & Mediterranean Dusk",
-      "category": "destination",
-      "categoryLabel": "Coastal Destination",
-      "location": "Villa Cimbrone, Ravello, Italy",
-      "youtubeId": "SuJPTNyEuV8",
-      "thumbnail": "assets/images/film_04_amalfi.jpg",
-      "duration": "3:50",
-      "description": "Perched above the sapphire Mediterranean sea, unhurried vows whispered in ancient marble cloisters."
-    },
-    {
-      "id": "film-5",
-      "title": "Sophia & Julian | Modern Intimacy in Tribeca | The Beekman, New York",
-      "couple": "Sophia & Julian",
-      "subtitle": "Manhattan Chic & Candlelit Atrium",
-      "category": "wedding",
-      "categoryLabel": "City Wedding",
-      "location": "The Beekman, New York City",
-      "youtubeId": "3RyZOMXqd4I",
-      "thumbnail": "assets/images/film_05_tribeca.jpg",
-      "duration": "4:20",
-      "description": "Victorian atrium architecture, vintage cab portraits down Fifth Avenue, and an electric rooftop party."
-    },
-    {
-      "id": "film-6",
-      "title": "Claire & Sebastien | Provençal Lavender & Olive Groves | Bastide de Gordes, France",
-      "couple": "Claire & Sebastien",
-      "subtitle": "Sun-Drenched Stone & Acoustic Melodies",
-      "category": "destination",
-      "categoryLabel": "Provence Wedding",
-      "location": "Bastide de Gordes, Provence, France",
-      "youtubeId": "RaCQIlaLAcE",
-      "thumbnail": "assets/images/film_06_provence.jpg",
-      "duration": "5:10",
-      "description": "Sunlit dry-stone walls, local French vineyards, and effortless romance under century-old olive branches."
-    },
-    {
-      "id": "film-7",
-      "title": "Astrid & Soren | Nordic Light & Quiet Vows | Geiranger Fjord, Norway",
-      "couple": "Astrid & Soren",
-      "subtitle": "Dramatic Fjord Cliffs & Intimate Elopement",
-      "category": "elopement",
-      "categoryLabel": "Intimate Elopement",
-      "location": "Geiranger Fjord, Norway",
-      "youtubeId": "0vCHgO5dMoA",
-      "thumbnail": "assets/images/film_07_fjord.jpg",
-      "duration": "3:15",
-      "description": "Misty waterfalls, wool coats, and an acoustic exchange of vows overlooking ancient glacial waters."
-    },
-    {
-      "id": "film-8",
-      "title": "Victoria & Alexander | Black Tie at The Plaza | Central Park, New York",
-      "couple": "Victoria & Alexander",
-      "subtitle": "Gilded Age Grandeur & Midnight Champagne",
-      "category": "wedding",
-      "categoryLabel": "Black Tie Gala",
-      "location": "The Plaza Hotel, New York City",
-      "youtubeId": "PqO5OgCC7Kw",
-      "thumbnail": "assets/images/film_08_plaza.jpg",
-      "duration": "4:55",
-      "description": "Crystal chandeliers, bespoke couture ballgown, and big band jazz ringing out into late Manhattan night."
-    },
-    {
-      "id": "film-9",
-      "title": "Margaux & Liam | Vineyard Sunset & Champagne | Val d'Orcia, Tuscany",
-      "couple": "Margaux & Liam",
-      "subtitle": "Cypress Driveways & Tuscan Long-Table Dining",
-      "category": "destination",
-      "categoryLabel": "Tuscany Destination",
-      "location": "Val d'Orcia, Tuscany, Italy",
-      "youtubeId": "edqpmO6yEZs",
-      "thumbnail": "assets/images/film_09_tuscany.jpg",
-      "duration": "5:05",
-      "description": "Endless rolling golden hills, handmade pasta courses served family-style under hanging fairy lights."
-    },
-    {
-      "id": "film-10",
-      "title": "Olivia & Ethan | Ocean Breeze & Salt Air | Big Sur Coastline, California",
-      "couple": "Olivia & Ethan",
-      "subtitle": "Pacific Cliffs & Redwood Canopy",
-      "category": "elopement",
-      "categoryLabel": "Coastal Elopement",
-      "location": "Big Sur, California, USA",
-      "youtubeId": "fM-v0w_xlCE",
-      "thumbnail": "assets/images/film_10_bigsur.jpg",
-      "duration": "3:40",
-      "description": "Crashing Pacific surf, towering coastal redwood trees, and wind-blown vows against the setting sun."
-    },
-    {
-      "id": "film-11",
-      "title": "Giselle & Raphael | Bohemian Reverie in Mallorca | Belmond La Residencia, Spain",
-      "couple": "Giselle & Raphael",
-      "subtitle": "Tramuntana Mountains & Spanish Courtyard",
-      "category": "destination",
-      "categoryLabel": "Balearic Destination",
-      "location": "Deià, Mallorca, Spain",
-      "youtubeId": "YyI1nxY_BK0",
-      "thumbnail": "assets/images/film_11_mallorca.jpg",
-      "duration": "4:30",
-      "description": "Terracotta rooftops, Spanish acoustic guitar, citrus trees, and an exuberant late-night pool party."
-    },
-    {
-      "id": "film-12",
-      "title": "Freja & Oliver | Winter Fairytale | St. Moritz, Swiss Alps",
-      "couple": "Freja & Oliver",
-      "subtitle": "Alpine Snowscape & Fireside Intimacy",
-      "category": "destination",
-      "categoryLabel": "Alpine Destination",
-      "location": "St. Moritz, Switzerland",
-      "youtubeId": "bmentBejIYc",
-      "thumbnail": "assets/images/film_12_alps.jpg",
-      "duration": "4:12",
-      "description": "Horse-drawn carriage through snow-laden pine forests, vintage champagne toasts beside a grand stone hearth."
-    },
-    {
-      "id": "film-13",
-      "title": "Seraphina & David | Sun-Kissed Cycladic Vows | Oia, Santorini",
-      "couple": "Seraphina & David",
-      "subtitle": "Whitewashed Architecture & Aegean Blue",
-      "category": "destination",
-      "categoryLabel": "Greek Isles",
-      "location": "Oia, Santorini, Greece",
-      "youtubeId": "hpZlmNEtkOg",
-      "thumbnail": "assets/images/film_13_santorini.jpg",
-      "duration": "4:05",
-      "description": "Caldera panoramic vistas, radiant Mediterranean sun, and an intimate candlelit cliffside dinner."
-    },
-    {
-      "id": "film-14",
-      "title": "Genevieve & Marcus | Grand Chateau Extravaganza | Loire Valley, France",
-      "couple": "Genevieve & Marcus",
-      "subtitle": "Baroque Salon & Midnight Fireworks",
-      "category": "wedding",
-      "categoryLabel": "Historic Chateau",
-      "location": "Chateau de Chambord vicinity, Loire Valley",
-      "youtubeId": "UquIrNp2bGE",
-      "thumbnail": "assets/images/film_14_loire.jpg",
-      "duration": "5:40",
-      "description": "Aristocratic French gardens, champagne sabering, and illuminated chateau reflection ponds under fireworks."
-    },
-    {
-      "id": "film-15",
-      "title": "Clara & Thomas | Old World Elegance | Vienna Belvedere Palace, Austria",
-      "couple": "Clara & Thomas",
-      "subtitle": "Imperial Marble Halls & Viennese Waltz",
-      "category": "wedding",
-      "categoryLabel": "Palace Wedding",
-      "location": "Belvedere Palace, Vienna, Austria",
-      "youtubeId": "jb9MWfn5oMQ",
-      "thumbnail": "assets/images/film_15_vienna.jpg",
-      "duration": "4:22",
-      "description": "Baroque fresco ceilings, imperial orchestra accompaniment, and timeless waltzes continuing till sunrise."
-    },
-    {
-      "id": "film-16",
-      "title": "Chloe & Benjamin | Wild Desert Elegance | Amangiri, Utah",
-      "couple": "Chloe & Benjamin",
-      "subtitle": "Canyon Architecture & Starlit Dinner",
-      "category": "destination",
-      "categoryLabel": "Desert Modernism",
-      "location": "Amangiri, Canyon Point, Utah",
-      "youtubeId": "HBWSOZSQzLQ",
-      "thumbnail": "assets/images/film_16_amangiri.jpg",
-      "duration": "4:15",
-      "description": "Minimalist concrete architecture framed by sculpted sandstone mesas and celestial desert night skies."
+      "tag": "WITH A",
+      "title": "Sense of Place",
+      "subtitle": "Landscape & architectural atmosphere",
+      "description": "The third part of the trilogy that ties my coverage together is telling the story of where you are getting married. From rugged Jurassic cliffs and rolling Dorset downs to historic manor houses and country barns.",
+      "image": "assets/images/dorset/pillar_sense_of_place.webp",
+      "fallbackImage": "assets/images/dorset/pillar_sense_of_place.jpg"
     }
   ],
-  "photos": [
+  "observationGallery": [
     {
-      "id": "photo-1",
-      "title": "The Cathedral Veil Bridal Portrait",
-      "category": "bridal",
-      "categoryLabel": "Bridal Portraits",
-      "src": "assets/images/photo_moment_1_veil.jpg",
-      "couple": "Camille's Quiet Solitude",
-      "location": "Chateau de Villette, France",
-      "caption": "A breathless silence before walking down the aisle, framed by French lace and soft morning light."
+      "id": "obs-1",
+      "title": "Laughter Unfiltered",
+      "category": "authentic",
+      "categoryLabel": "Authentic Moments",
+      "venue": "Cranborne Estate Barn, Dorset",
+      "image": "assets/images/dorset/obs_01_laughter.webp",
+      "fallbackImage": "assets/images/dorset/obs_01_laughter.jpg",
+      "caption": "A burst of spontaneous table laughter during speeches, framed by natural afternoon window light."
     },
     {
-      "id": "photo-2",
-      "title": "The Exchange of Sacred Vows",
-      "category": "ceremony",
-      "categoryLabel": "Ceremony & Vows",
-      "src": "assets/images/photo_moment_2_vows.jpg",
-      "couple": "Elena & Matteo",
-      "location": "Villa Balbiano, Lake Como",
-      "caption": "Standing together beside the tranquil waters as promises of forever are sealed."
+      "id": "obs-2",
+      "title": "Dorset Golden Hour",
+      "category": "two-of-you",
+      "categoryLabel": "Two Of You",
+      "venue": "Corfe Castle & Purbeck Hills",
+      "image": "assets/images/dorset/obs_02_light.webp",
+      "fallbackImage": "assets/images/dorset/obs_02_light.jpg",
+      "caption": "A sunset pause overlooking the rolling Purbeck ridge in gentle golden backlight."
     },
     {
-      "id": "photo-3",
-      "title": "Champagne Tower Euphoria",
-      "category": "celebrations",
-      "categoryLabel": "Celebrations & Toasts",
-      "src": "assets/images/photo_moment_3_toast.jpg",
-      "couple": "Charlotte & William",
-      "location": "Aynhoe Park, Cotswolds",
-      "caption": "Vintage crystal coupès overflowing with vintage champagne amidst the cheers of lifelong friends."
+      "id": "obs-3",
+      "title": "Jurassic Coast Panorama",
+      "category": "place",
+      "categoryLabel": "Sense of Place",
+      "venue": "Lulworth Cove & Clifftop",
+      "image": "assets/images/dorset/obs_03_landscape.webp",
+      "fallbackImage": "assets/images/dorset/obs_03_landscape.jpg",
+      "caption": "Dramatic sea mist and coastal cliff geology providing an epic sense of scale."
     },
     {
-      "id": "photo-4",
-      "title": "Cliffside Sunset Serenade",
-      "category": "destination",
-      "categoryLabel": "Destination Romance",
-      "src": "assets/images/photo_moment_4_sunset.jpg",
-      "couple": "Isabella & Lucas",
-      "location": "Ravello, Amalfi Coast",
-      "caption": "High above the Tyrrhenian Sea as dusk turns into deep twilight lavender and warm amber."
+      "id": "obs-4",
+      "title": "Quiet Connection",
+      "category": "two-of-you",
+      "categoryLabel": "Two Of You",
+      "venue": "St Giles House, Wimborne",
+      "image": "assets/images/dorset/obs_04_intimacy.webp",
+      "fallbackImage": "assets/images/dorset/obs_04_intimacy.jpg",
+      "caption": "Intimate embrace under the historic lime avenue away from the bustling reception."
     },
     {
-      "id": "photo-5",
-      "title": "Black-Tie Architectural Silhouette",
-      "category": "bridal",
-      "categoryLabel": "Editorial Portraits",
-      "src": "assets/images/photo_moment_5_silhouette.jpg",
-      "couple": "Victoria & Alexander",
-      "location": "The Plaza Hotel, New York",
-      "caption": "An editorial silhouette honoring aristocratic symmetry and modern metropolitan romance."
+      "id": "obs-5",
+      "title": "Late Night Euphoria",
+      "category": "authentic",
+      "categoryLabel": "Authentic Moments",
+      "venue": "Axnoller Estate, Beaminster",
+      "image": "assets/images/dorset/obs_05_dance.webp",
+      "fallbackImage": "assets/images/dorset/obs_05_dance.jpg",
+      "caption": "All-day coverage means being there when the live brass band sets the dancefloor on fire."
     },
     {
-      "id": "photo-6",
-      "title": "Candlelit Ballroom First Dance",
-      "category": "celebrations",
-      "categoryLabel": "First Dance",
-      "src": "assets/images/photo_moment_6_dance.jpg",
-      "couple": "Sophia & Julian",
-      "location": "The Beekman, New York City",
-      "caption": "Lost entirely in the music beneath soaring Victorian wrought iron balconies."
-    },
-    {
-      "id": "photo-7",
-      "title": "Unfiltered Joy & Tender Tears",
-      "category": "emotions",
-      "categoryLabel": "Candid Moments",
-      "src": "assets/images/photo_moment_7_laughter.jpg",
-      "couple": "Claire & Sebastien",
-      "location": "Gordes, Provence",
-      "caption": "Spontaneous laughter shared between vows—unrehearsed, authentic, and forever preserved."
-    },
-    {
-      "id": "photo-8",
-      "title": "Heirloom Rings & Letterpress Details",
+      "id": "obs-6",
+      "title": "Handcrafted Heirloom Details",
       "category": "details",
-      "categoryLabel": "Details & Heirlooms",
-      "src": "assets/images/photo_moment_8_details.jpg",
-      "couple": "Fine Art Keepsakes",
-      "location": "Private Villa Studio",
-      "caption": "Handmade deckled paper, vintage gold bands, and fragrant English garden gardenias."
+      "categoryLabel": "Light & Details",
+      "venue": "Sopley Mill, Christchurch",
+      "image": "assets/images/dorset/obs_06_details.webp",
+      "fallbackImage": "assets/images/dorset/obs_06_details.jpg",
+      "caption": "Botanical floral styling and heirloom gold bands reflecting morning window illumination."
     }
   ],
-  "services": [
+  "featuredWeddings": [
     {
-      "tier": "Signature",
-      "name": "The European Grand Tour (Destination Weekend)",
-      "badge": "Most Requested",
-      "summary": "Comprehensive 3-to-4 day cinema and photography coverage for destination celebrations across Europe and worldwide.",
-      "deliverables": [
-        "Full multi-day coverage (Welcome Dinner, Wedding Day & Farewell Brunch)",
-        "Feature Wedding Film (12-18 mins) in 4K Master resolution",
-        "Social Teaser Trailer (60-90 sec) delivered within 48 hours",
-        "800+ Fine-Art High-Resolution Photographs with print release",
-        "Complete documentary ceremony & speeches multi-camera cut",
-        "2 Handcrafted Italian Leather Hardcover Flushmount Albums",
-        "Licensed aerial drone cinematography team included"
-      ]
+      "id": "feat-1",
+      "venue": "Lulworth Castle, Dorset",
+      "couple": "Eleanor & James",
+      "summary": "Dramatic clifftop romance and candlelit banqueting inside Dorset's 17th-century historic castle.",
+      "image": "assets/images/dorset/feat_lulworth_castle.webp",
+      "fallbackImage": "assets/images/dorset/feat_lulworth_castle.jpg",
+      "tag": "Castle Wedding"
     },
     {
-      "tier": "Classic",
-      "name": "The Editorial Memoir",
-      "badge": "Signature Choice",
-      "summary": "Our signature 2-day wedding film & photography collection designed for couples who value candid poise.",
-      "deliverables": [
-        "2 days coverage (Rehearsal Dinner + Wedding Day & Afterparty)",
-        "Highlight Wedding Film (6-8 mins) set to licensed orchestral score",
-        "Teaser trailer delivered within 72 hours for social sharing",
-        "500+ Master-edited fine-art digital photographs",
-        "Private password-protected cloud gallery with 10-year backup",
-        "1 Heirloom Flushmount Wedding Album (40 archival spreads)"
-      ]
+      "id": "feat-2",
+      "venue": "Sopley Mill, Christchurch",
+      "couple": "Sophie & Marcus",
+      "summary": "Water meadow willow trees, historic red-brick mill floors, and riverside sunset canapés.",
+      "image": "assets/images/dorset/feat_sopley_mill.webp",
+      "fallbackImage": "assets/images/dorset/feat_sopley_mill.jpg",
+      "tag": "Riverside Mill"
     },
     {
-      "tier": "Intimate",
-      "name": "Intimate Elopement & Vows",
-      "badge": "Intimate Collection",
-      "summary": "Tailored coverage for intimate gatherings, elopements, and private cliffside vows worldwide.",
-      "deliverables": [
-        "Full-day coverage (up to 8 hours of unhurried documentation)",
-        "Romantic Fine-Art Film (3-4 mins) in 4K resolution",
-        "250+ Magazine-grade retouched couple portraits",
-        "Styling, lighting, and scenic location scouting consultation",
-        "Curated online gallery delivered within 4 weeks"
-      ]
+      "id": "feat-3",
+      "venue": "Salcombe Coast, South Devon",
+      "couple": "Freya & Oliver",
+      "summary": "Sea-breeze estuary cruise, sailing club marquee, and clifftop sunset portraits.",
+      "image": "assets/images/dorset/feat_salcombe_coast.webp",
+      "fallbackImage": "assets/images/dorset/feat_salcombe_coast.jpg",
+      "tag": "Coastal Celebration"
+    },
+    {
+      "id": "feat-4",
+      "venue": "Axnoller & Chedington, West Dorset",
+      "couple": "Charlotte & Will",
+      "summary": "Ultra-luxury rolling hills estate wedding with glass barn dining and outdoor pool party.",
+      "image": "assets/images/dorset/feat_axnoller_cheddington.webp",
+      "fallbackImage": "assets/images/dorset/feat_axnoller_cheddington.jpg",
+      "tag": "Country Estate"
+    },
+    {
+      "id": "feat-5",
+      "venue": "Larmer Tree Gardens, Wiltshire Borders",
+      "couple": "Imogen & Harry",
+      "summary": "Victorian pleasure gardens, wandering peacocks, Roman temple ceremony, and fairy-lit singing.",
+      "image": "assets/images/dorset/feat_larmer_tree.webp",
+      "fallbackImage": "assets/images/dorset/feat_larmer_tree.jpg",
+      "tag": "Historic Gardens"
+    },
+    {
+      "id": "feat-6",
+      "venue": "St Giles House, Wimborne St Giles",
+      "couple": "Camilla & George",
+      "summary": "Aristocratic library ceremony, grand shell grotto, and an underground speakeasy nightclub.",
+      "image": "assets/images/dorset/feat_st_giles_house.webp",
+      "fallbackImage": "assets/images/dorset/feat_st_giles_house.jpg",
+      "tag": "Historic Manor"
+    }
+  ],
+  "craftAndDetails": [
+    {
+      "title": "Group Photos Made Easy",
+      "subtitle": "Fast, relaxed family groupings",
+      "description": "Group photos shouldn’t take an hour and bore your guests. With careful pre-planning and swift, cheerful direction, we get 6 to 8 essential family groupings completed in under 15 minutes, letting everyone get back to champagne and canapés."
+    },
+    {
+      "title": "Fine Art Albums & Presentation",
+      "subtitle": "Heirloom books designed to last generations",
+      "description": "Handcrafted Queensberry and Folio fine-art books bound in British leather or archival linen, printed with pigment inks on museum cotton paper designed to endure for over a century.",
+      "image": "assets/images/dorset/album_presentation.webp",
+      "fallbackImage": "assets/images/dorset/album_presentation.jpg"
+    },
+    {
+      "title": "35mm Analogue Film Craft",
+      "subtitle": "Organic film grain & timeless nostalgia",
+      "description": "Optional authentic Kodak Portra & Ilford black & white 35mm analogue film frames running alongside high-resolution digital cameras for unmatched organic grain, warmth, and nostalgia.",
+      "image": "assets/images/dorset/film_35mm.webp",
+      "fallbackImage": "assets/images/dorset/film_35mm.jpg"
     }
   ],
   "testimonials": [
     {
-      "quote": "Commissioning Julian and his cinema crew was the single best decision of our entire Lake Como wedding. They moved like quiet observers, never interrupting the emotion, yet the final 4K film captures every tear, the sound of the lake, and the joy of our friends. It is pure fine-art cinema.",
-      "couple": "Elena & Matteo",
-      "location": "Villa Balbiano, Lake Como, Italy",
-      "avatar": "assets/images/avatar_foreign_1.jpg"
+      "couple": "Kate and Steve",
+      "venue": "Lulworth Castle, Dorset",
+      "quote": "Robin has a unique gift for harnessing the power of light to create images that are nothing short of breathtaking. He blended in like an old friend, and our gallery captured the emotion of the day in a way we couldn't have imagined."
     },
     {
-      "quote": "Julian's eye for natural light and effortless editorial composition is remarkable. Our photographs don't feel like staged wedding clichés—they look like stills from an intimate European film. We will cherish these heirlooms forever.",
-      "couple": "Charlotte & William",
-      "location": "Aynhoe Park, Oxfordshire, UK",
-      "avatar": "assets/images/avatar_foreign_2.jpg"
+      "couple": "Sarah and Tom",
+      "venue": "Axnoller Estate, West Dorset",
+      "quote": "Robin is an incredible photographer – his ability to find and capture moments, to choose the best light and craft gorgeous images is second to none. He made us feel completely relaxed, and the ‘two of you’ session was one of our favourite parts of the day."
     },
     {
-      "quote": "From our engagement session in Paris to our black-tie winter gala in Manhattan, Julian captured every breath and stolen glance with breathtaking finesse. Impeccable color grading and museum-grade album craft.",
-      "couple": "Victoria & Alexander",
-      "location": "The Plaza Hotel, New York City",
-      "avatar": "assets/images/avatar_foreign_3.jpg"
+      "couple": "Hannah and Ben",
+      "venue": "Larmer Tree Gardens",
+      "quote": "Looking through our wedding photos felt like reliving every laugh, every tear, and every hug. There wasn’t a single awkward pose – Robin has a true genius for observational documentary storytelling."
     }
   ],
-  "faq": [
-    {
-      "q": "What is your approach and visual style?",
-      "a": "We are documentary fine-art storytellers with an editorial eye. We believe authentic emotions are far more captivating than staged theatrics. We capture genuine laughter, quiet tears, and effortless elegance with natural light and timeless color fidelity."
-    },
-    {
-      "q": "Do you travel for destination weddings?",
-      "a": "Yes. Over 75% of our commissions are destination celebrations throughout Lake Como, Amalfi Coast, Provence, Cotswolds, Paris, New York, Aspen, and the Balearic Islands. We handle all crew travel logistics seamlessly."
-    },
-    {
-      "q": "How soon do we receive our photographs and films?",
-      "a": "You receive a curated 50-photo preview and social film teaser within 48 to 72 hours of your wedding. Your complete color-graded photo collection arrives in 4 to 6 weeks, and master 4K films within 6 to 8 weeks."
-    },
-    {
-      "q": "How do we secure our wedding date?",
-      "a": "We accept a strictly limited number of weddings per year (maximum 20) to ensure devoted attention to every couple. A signed service agreement and a 50% retainer reserves your date exclusively on our calendar."
-    }
-  ],
-  "pressBadges": [
-    "Vogue Weddings",
-    "Over The Moon",
-    "Harper's Bazaar Bride",
-    "Brides Magazine",
-    "Rangefinder Best Wedding Photographer"
-  ]
+  "investment": {
+    "title": "Investment & What's Included",
+    "startingPrice": "£2,400",
+    "features": [
+      "Full day photographic coverage by Robin Goodlad from morning prep through well past the first dance",
+      "Pre-wedding consultation & timeline planning session",
+      "600+ individually color-graded, high-resolution digital images delivered in private online gallery",
+      "Full personal printing & sharing rights with no watermarks",
+      "Curated slideshow set to licensed music",
+      "Optional fine art album and 35mm analogue film add-ons"
+    ]
+  }
 }

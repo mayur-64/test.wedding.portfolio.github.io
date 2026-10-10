@@ -1,13 +1,26 @@
 #!/usr/bin/env python3
 """
-Automated Verification & QA Suite for Julian Vance Photography & Cinema (JV)
+Automated Verification & QA Suite for Robin Goodlad Photography (Branch: sample2)
+Modeled directly after: https://www.robingoodlad.com/ (Dorset Wedding Photographer)
+
 Validates:
-1. File structure & media assets (WebP, MP4, WebM, JSON, CSS, JS)
-2. Semantic HTML structure, landmarks, skip-link, and accessible ARIA attributes
-3. SEO tags, Canonical URL, OpenGraph, Twitter Cards, and Schema.org JSON-LD
-4. 11-section layout mapping and interactive motion targets
-5. Dev server HTTP 200 responses
-6. Verification that all personal names of Rohan Shinde are replaced with foreign photographer placeholders
+1. Core files and Dorset assets (WebP, JPG fallbacks, CSS, JS, JSON)
+2. Robin Goodlad branding, Wimborne Dorset studio location, awards, and removal of any old personas
+3. Semantic HTML structure, single H1, and accessibility
+4. SEO metadata, canonical link, OpenGraph, Twitter Cards, Schema.org JSON-LD
+5. All Robin Goodlad sections & editorial pillars:
+   - Hero ("real moments, creatively captured")
+   - Meet Robin ("Hey there, I’m Robin", Rangefinder 30 Rising Stars)
+   - The 3 Pillars (Authentic Moments, ‘Two Of You’ photos, Sense of Place)
+   - Experience ("You’re in SAFE HANDS", 15+ years, 500+ weddings, FMPA)
+   - The Art of Observation interactive gallery with filter controls
+   - Featured Weddings (Lulworth Castle, Sopley Mill, Salcombe Coast, Axnoller, Larmer Tree, St Giles)
+   - Details & Craft (Group Photos Made Easy, Queensberry Fine Art Albums, 35mm film)
+   - Real Client Reviews (Kate & Steve, Sarah & Tom, Hannah & Ben)
+   - Investment (£2,400 all day coverage)
+   - "get in touch" form with 24h guarantee
+   - Dorset studio footer with 21 Greenhill Close, Wimborne, BH21 2RQ
+6. Local dev server HTTP 200 responses
 """
 
 import os
@@ -21,149 +34,187 @@ PORT = 8085
 BASE_URL = f'http://127.0.0.1:{PORT}'
 
 def test_files_and_media():
-    print("[1/6] Verifying core files and media assets...")
+    print("[1/6] Verifying core files and Dorset media assets...")
     core_files = [
         'index.html',
         'css/style.css',
         'js/main.js',
         'data/portfolio_data.json',
         'data/portfolio_data.js',
-        'assets/favicon.svg',
-        'assets/hero-loop.mp4',
-        'assets/hero-loop.webm',
-        'robots.txt',
-        'sitemap.xml',
-        '.nojekyll',
-        '.gitignore',
-        'README.md'
+        'assets/favicon.svg'
     ]
     for rel_path in core_files:
         full = os.path.join(BASE_DIR, rel_path)
         assert os.path.exists(full), f"Missing file: {rel_path}"
         assert os.path.getsize(full) > 0, f"File is empty: {rel_path}"
 
-    images_dir = os.path.join(BASE_DIR, 'assets/images')
-    files_in_images = os.listdir(images_dir)
-    webp_files = [f for f in files_in_images if f.endswith('.webp')]
-    jpg_files = [f for f in files_in_images if f.endswith('.jpg') or f.endswith('.png')]
+    dorset_dir = os.path.join(BASE_DIR, 'assets/images/dorset')
+    assert os.path.exists(dorset_dir), "Missing assets/images/dorset directory"
+    dorset_files = os.listdir(dorset_dir)
 
-    assert len(webp_files) >= 20, f"Expected at least 20 WebP files, found {len(webp_files)}"
-    assert len(jpg_files) >= 20, f"Expected at least 20 JPG/PNG fallback files, found {len(jpg_files)}"
-    print(f"  ✓ Verified core files and {len(webp_files)} WebP assets with fallbacks.")
+    expected_stems = [
+        'hero_dorset',
+        'robin_portrait',
+        'pillar_authentic',
+        'pillar_two_of_you',
+        'pillar_sense_of_place',
+        'obs_01_laughter',
+        'obs_02_light',
+        'obs_03_landscape',
+        'obs_04_intimacy',
+        'obs_05_dance',
+        'obs_06_details',
+        'feat_lulworth_castle',
+        'feat_sopley_mill',
+        'feat_salcombe_coast',
+        'feat_axnoller_cheddington',
+        'feat_larmer_tree',
+        'feat_st_giles_house',
+        'album_presentation',
+        'film_35mm'
+    ]
 
-def test_foreign_photographer_replacement():
-    print("[2/6] Verifying replacement of previous branding with foreign photographer placeholders...")
+    for stem in expected_stems:
+        webp_path = os.path.join(dorset_dir, f"{stem}.webp")
+        jpg_path = os.path.join(dorset_dir, f"{stem}.jpg")
+        assert os.path.exists(webp_path), f"Missing WebP image: {stem}.webp"
+        assert os.path.getsize(webp_path) > 0, f"Empty WebP image: {stem}.webp"
+        assert os.path.exists(jpg_path), f"Missing JPG fallback: {stem}.jpg"
+        assert os.path.getsize(jpg_path) > 0, f"Empty JPG fallback: {stem}.jpg"
+
+    print(f"  ✓ Verified core files and all {len(expected_stems)} pairs of WebP/JPG Dorset assets.")
+
+def test_robin_goodlad_branding():
+    print("[2/6] Verifying Robin Goodlad Dorset branding & persona...")
     html_path = os.path.join(BASE_DIR, 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
 
-    # Must NOT have old name
-    assert 'rohan' not in html.lower(), "Found 'Rohan' in index.html"
-    assert 'shinde' not in html.lower(), "Found 'Shinde' in index.html"
+    # Old names must not exist
+    assert 'rohan' not in html.lower(), "Found old name 'Rohan' in index.html"
+    assert 'shinde' not in html.lower(), "Found old name 'Shinde' in index.html"
+    assert 'julian vance' not in html.lower(), "Found previous placeholder 'Julian Vance' in index.html"
 
-    # Must have Julian Vance
-    assert 'Julian Vance' in html, "Missing 'Julian Vance' in index.html"
-    assert 'JV' in html, "Missing monogram 'JV' in index.html"
+    # Must contain Robin Goodlad details
+    assert 'Robin Goodlad' in html, "Missing 'Robin Goodlad' in index.html"
+    assert 'Dorset Wedding Photographer' in html, "Missing 'Dorset Wedding Photographer' in index.html"
+    assert 'Wimborne' in html, "Missing 'Wimborne' studio locality in index.html"
+    assert '01202 282728' in html, "Missing studio telephone number in index.html"
+    assert 'Rangefinder 30 Rising Stars' in html, "Missing Rangefinder 30 Rising Stars in index.html"
 
     # Check portfolio_data.json
     json_path = os.path.join(BASE_DIR, 'data/portfolio_data.json')
     with open(json_path, 'r', encoding='utf-8') as f:
-        json_content = f.read()
-    assert 'rohan' not in json_content.lower(), "Found 'Rohan' in portfolio_data.json"
-    assert 'shinde' not in json_content.lower(), "Found 'Shinde' in portfolio_data.json"
-    assert 'Julian Vance' in json_content, "Missing 'Julian Vance' in portfolio_data.json"
+        data = json.load(f)
 
-    print("  ✓ Completely verified removal of old branding and adoption of Julian Vance persona.")
+    assert data['brand']['name'] == 'Robin Goodlad Photography'
+    assert 'Dorset' in data['brand']['location']
+    assert data['brand']['locality'] == 'Wimborne'
 
-def test_html_semantics_and_a11y():
-    print("[3/6] Checking HTML landmarks, accessibility, and ARIA attributes...")
+    print("  ✓ Completely verified Robin Goodlad branding and clean persona adoption.")
+
+def test_html_semantics():
+    print("[3/6] Checking HTML landmarks, single H1, and accessibility...")
     html_path = os.path.join(BASE_DIR, 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
 
-    assert '<header' in html and '</header>' in html, "Missing <header>"
-    assert '<main id="content"' in html and '</main>' in html, "Missing <main id=\"content\">"
-    assert '<footer' in html and '</footer>' in html, "Missing <footer>"
-    assert 'class="skip-link"' in html, "Missing Skip to Main Content link"
+    assert '<header id="masthead"' in html, "Missing <header id=\"masthead\">"
+    assert '<main id="main-content"' in html, "Missing <main id=\"main-content\">"
+    assert '<footer id="colophon"' in html, "Missing <footer id=\"colophon\">"
 
-    h1_matches = re.findall(r'<h1\b', html)
+    h1_matches = re.findall(r'<h1\b[^>]*>(.*?)</h1>', html, re.DOTALL | re.IGNORECASE)
     assert len(h1_matches) == 1, f"Expected exactly 1 <h1>, found {len(h1_matches)}"
+    assert 'real moments, creatively captured' in h1_matches[0], f"H1 text does not match: {h1_matches[0]}"
 
-    assert 'aria-roledescription="carousel"' in html, "Missing aria-roledescription on carousel"
     assert 'aria-label=' in html, "Missing aria-labels"
-    assert 'aria-expanded=' in html, "Missing aria-expanded on accordions/menus"
-    assert 'aria-controls=' in html, "Missing aria-controls on accordions"
-    assert 'role="region"' in html, "Missing role=\"region\""
-    assert 'sr-only' in html, "Missing screen-reader fallback classes"
+    assert 'aria-expanded=' in html, "Missing aria-expanded on mobile menu"
+    assert 'id="lightbox-modal"' in html, "Missing lightbox modal container"
 
-    print("  ✓ Semantic landmarks, single H1, and ARIA attributes confirmed.")
+    print("  ✓ Semantic landmarks, single H1, and accessibility confirmed.")
 
-def test_seo_and_schema_jsonld():
+def test_seo_and_schema():
     print("[4/6] Validating SEO metadata and Schema.org JSON-LD...")
     html_path = os.path.join(BASE_DIR, 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
 
-    assert '<title>' in html, "Missing <title>"
-    assert 'name="description"' in html, "Missing meta description"
-    assert 'rel="canonical"' in html, "Missing canonical link"
-    assert 'property="og:title"' in html, "Missing og:title"
-    assert 'property="og:image"' in html, "Missing og:image"
-    assert 'name="twitter:card"' in html, "Missing twitter:card"
+    assert '<title>Dorset Wedding Photographer | Robin Goodlad Photography</title>' in html
+    assert 'name="description"' in html
+    assert 'rel="canonical"' in html
+    assert 'property="og:title"' in html
+    assert 'property="og:image"' in html
+    assert 'name="twitter:card"' in html
 
-    assert '"@type": ["Photographer", "LocalBusiness"]' in html or 'Photographer' in html, "Missing Photographer Schema"
-    assert '"@type": "WebSite"' in html, "Missing WebSite Schema"
-    assert '"@type": "HowTo"' in html, "Missing HowTo Schema"
-    assert '"@type": "FAQPage"' in html, "Missing FAQPage Schema"
+    # Schema JSON-LD
+    assert '"@type": ["Photographer", "LocalBusiness", "ProfessionalService"]' in html or 'ProfessionalService' in html
+    assert '"name": "Robin Goodlad Photography"' in html
+    assert '"addressLocality": "Wimborne"' in html
+    assert '"postalCode": "BH21 2RQ"' in html
 
-    print("  ✓ SEO meta tags and all 4 JSON-LD Schema types validated.")
+    print("  ✓ SEO meta tags and Schema.org JSON-LD validated.")
 
-def test_11_sections_and_motion():
-    print("[5/6] Verifying 11-section layout and motion hooks...")
+def test_robingoodlad_sections():
+    print("[5/6] Verifying Robin Goodlad sections and components...")
     html_path = os.path.join(BASE_DIR, 'index.html')
     with open(html_path, 'r', encoding='utf-8') as f:
         html = f.read()
 
-    sections = [
-        ('1. Header & Mega-Menu', ['site-header', 'mega-menu-panel', 'mobile-hamburger-btn']),
-        ('2. Hero & 5-Card Carousel', ['hero', 'hero-bg-video', 'rotating-word', 'angled-card', 'stats-strip', 'digit-column']),
-        ('3. Love Stories King-Carousel', ['love-stories', 'king-card', 'data-king-tab', 'paging-dot', 'king-pause-btn']),
-        ('4. Experience Carousel', ['experience', 'experience-track', 'exp-prev-btn', 'exp-next-btn', 'portrait-service-card']),
-        ('5. Planning Made Simple & Styles', ['styles', 'style-scroll-card', 'start-style-cta', 'style-entry-card', 'badges-press-strip']),
-        ('6. Check Your Date Band', ['check-date', 'date-checker-form', 'inq-date', 'inq-location']),
-        ('7. Social Proof & Reviews', ['social-proof', 'headshot-avatar', 'testimonial-editorial-card', 'stars-rating']),
-        ('8. Made of Moments Mosaic', ['mosaic', 'mosaic-tilt-container', 'mosaic-heading-super', 'mosaic-photos-grid', 'sr-only-galleries']),
-        ('9. Accordions (How We Work + FAQ)', ['accordions', 'accordion-item', 'accordion-trigger-btn', 'accordion-panel', 'contact-cards-row']),
-        ('10. Final Conversion', ['final-cta', 'cta-primary']),
-        ('11. Footer', ['site-footer', 'footer-nav-grid', 'footer-bottom-legal'])
+    required_sections = [
+        ('Announcement Bar', 'announcement-bar'),
+        ('Hero Section', 'hero-section'),
+        ('Meet Robin Section', 'meet-robin-section'),
+        ('The 3 Pillars Section', 'pillars-section'),
+        ('Safe Hands Experience', 'experience-section'),
+        ('The Art of Observation', 'observation-section'),
+        ('Featured Weddings', 'featured-section'),
+        ('Craft & Albums', 'craft-section'),
+        ('Reviews & Kind Words', 'reviews-section'),
+        ('Investment Section', 'investment-section'),
+        ('Contact & Enquiry Form', 'contact-section'),
+        ('Dorset Studio Footer', 'site-footer')
     ]
 
-    for name, tokens in sections:
-        for token in tokens:
-            assert token in html, f"Section '{name}' missing token: {token}"
+    for label, cls in required_sections:
+        assert cls in html, f"Missing section: {label} (class: {cls})"
 
-    assert 'mobile-sticky-cta-bar' in html, "Missing mobile sticky CTA bar"
-    assert 'video-modal' in html, "Missing video modal"
-    assert 'photo-modal' in html, "Missing photo modal"
+    # Key Copy Phrases
+    assert 'Hey there, I’m Robin' in html
+    assert 'Authentic Moments' in html
+    assert '‘Two Of You’ photos' in html
+    assert 'Sense of Place' in html
+    assert 'You’re in SAFE HANDS' in html
+    assert 'The Art of Observation' in html
+    assert 'Group Photos Made Easy' in html
+    assert 'under 15 minutes' in html
+    assert 'Kate and Steve' in html
+    assert 'Sarah and Tom' in html
+    assert '£2,400' in html
+    assert '24 hours' in html
 
-    print("  ✓ All 11 sections and motion targets verified.")
+    # Venues
+    venues = ['Lulworth Castle', 'Sopley Mill', 'Salcombe Coast', 'Axnoller', 'Larmer Tree', 'St Giles House']
+    for v in venues:
+        assert v in html, f"Missing venue highlight: {v}"
+
+    print("  ✓ All Robin Goodlad sections, copy pillars, and venues confirmed.")
 
 def test_server_http():
-    print("[6/6] Testing local dev server HTTP endpoints...")
+    print("[6/6] Testing dev server HTTP endpoints...")
     routes = [
         '/',
         '/css/style.css',
         '/js/main.js',
         '/data/portfolio_data.json',
         '/data/portfolio_data.js',
-        '/robots.txt',
-        '/sitemap.xml',
         '/assets/favicon.svg',
-        '/assets/hero-loop.mp4',
-        '/assets/hero-loop.webm',
-        '/assets/images/hero_foreign.webp',
-        '/assets/images/film_01_paris.webp',
-        '/assets/images/film_02_como.webp'
+        '/assets/images/dorset/hero_dorset.webp',
+        '/assets/images/dorset/robin_portrait.webp',
+        '/assets/images/dorset/pillar_authentic.webp',
+        '/assets/images/dorset/pillar_two_of_you.webp',
+        '/assets/images/dorset/pillar_sense_of_place.webp',
+        '/assets/images/dorset/feat_lulworth_castle.webp',
+        '/assets/images/dorset/feat_sopley_mill.webp'
     ]
 
     try:
@@ -178,18 +229,18 @@ def test_server_http():
         print(f"  ℹ Dev server not reachable on {BASE_URL} ({e}); check dev_server.py.")
 
 def run_all():
-    print("=" * 65)
-    print("Julian Vance Photography & Cinema — QA Verification Suite")
-    print("=" * 65)
+    print("=" * 70)
+    print("Robin Goodlad Photography (Dorset) — QA Verification Suite (sample2)")
+    print("=" * 70)
     test_files_and_media()
-    test_foreign_photographer_replacement()
-    test_html_semantics_and_a11y()
-    test_seo_and_schema_jsonld()
-    test_11_sections_and_motion()
+    test_robin_goodlad_branding()
+    test_html_semantics()
+    test_seo_and_schema()
+    test_robingoodlad_sections()
     test_server_http()
-    print("=" * 65)
-    print("🎉 ALL CHECKS PASSED: Master branch is fully updated & compliant!")
-    print("=" * 65)
+    print("=" * 70)
+    print("🎉 ALL CHECKS PASSED: sample2 branch is 100% compliant and ready!")
+    print("=" * 70)
 
 if __name__ == '__main__':
     run_all()
