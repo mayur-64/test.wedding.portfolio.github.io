@@ -187,6 +187,11 @@
   background: #faf8f5;
 }
 
+[data-theme="light"] .mobile-sticky-cta-bar {
+  background: rgba(250, 248, 245, 0.95);
+  border-top-color: var(--hairline);
+}
+
 [data-theme="light"] .accordion-item {
   border-bottom-color: var(--hairline);
 }
@@ -508,11 +513,18 @@ ul, ol {
   background: none;
   border: none;
   color: var(--text-muted);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   cursor: pointer;
-  padding: 0.2rem;
+  padding: 0;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  right: 1.25rem;
+  right: 0.75rem;
 }
 .announcement-close-btn:hover {
   color: #fff;
@@ -617,6 +629,7 @@ ul, ol {
   left: 50%;
   transform: translateX(-50%) translateY(10px);
   width: 780px;
+  max-width: calc(100vw - 40px);
   background: rgba(18, 19, 23, 0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -723,6 +736,8 @@ ul, ol {
 .theme-toggle-btn {
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--hairline);
@@ -1717,7 +1732,7 @@ ul, ol {
 }
 
 .accordion-item.open .accordion-panel {
-  max-height: 500px;
+  max-height: 1200px;
   padding-bottom: 1.5rem;
 }
 
@@ -2171,14 +2186,25 @@ ul, ol {
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 12px 20px;
+  padding-bottom: max(12px, calc(12px + env(safe-area-inset-bottom)));
   z-index: 990;
   border-top: 1px solid var(--hairline);
   transition: transform 0.3s ease;
 }
 
-.mobile-sticky-cta-bar.visible {
-  display: block;
+@media (max-width: 768px) {
+  .mobile-sticky-cta-bar.visible {
+    display: block;
+  }
 }
+
+@media (min-width: 769px) {
+  .mobile-sticky-cta-bar,
+  .mobile-sticky-cta-bar.visible {
+    display: none !important;
+  }
+}
+
 .mobile-sticky-cta-bar.hidden-bottom {
   transform: translateY(100%);
 }
@@ -2251,6 +2277,8 @@ ul, ol {
 }
 
 /* --- Breakpoint Media Queries --- */
+
+/* Tablet & Below (<= 1020px) */
 @media (max-width: 1020px) {
   .desktop-nav {
     display: none;
@@ -2270,17 +2298,55 @@ ul, ol {
   .testimonials-grid-3 {
     grid-template-columns: 1fr;
   }
-  .mosaic-photos-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .contact-cards-row {
     grid-template-columns: 1fr;
   }
   .footer-nav-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .choose-style-row {
+    justify-content: flex-start;
+    padding: 1.5rem 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .choose-style-row::-webkit-scrollbar {
+    display: none;
+  }
+  .style-scroll-card {
+    scroll-snap-align: center;
+  }
 }
 
+/* Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  .section-container {
+    padding: clamp(3.5rem, 7vw, 5rem) 0;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .enquiry-card {
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius-md);
+  }
+  .contact-section {
+    padding: 4rem 0;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea,
+  .date-checker-input {
+    font-size: 16px !important; /* Prevents iOS Safari auto-zoom */
+    min-height: 48px;
+  }
+  .form-group textarea {
+    min-height: 120px;
+  }
+}
+
+/* Mobile Screens (<= 744px) */
 @media (max-width: 744px) {
   .stats-counters-row {
     grid-template-columns: 1fr 1fr;
@@ -2292,17 +2358,117 @@ ul, ol {
   .footer-nav-grid {
     grid-template-columns: 1fr;
   }
+  /* Curated 2-column editorial mosaic rather than excessive vertical stack */
   .mosaic-photos-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
   }
+  .mosaic-heading-super {
+    font-size: clamp(2.2rem, 9vw, 3.5rem);
+    margin-bottom: 1.5rem;
+  }
+  /* Responsive King Carousel for Mobile */
+  .king-carousel-stage {
+    aspect-ratio: 4 / 3;
+    min-height: 380px;
+    border-radius: var(--radius-md);
+  }
+  .king-card {
+    padding: 1.5rem 1.25rem;
+  }
+  .king-card-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+  .king-card-title {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    margin-bottom: 0.35rem;
+  }
+  .king-card-desc {
+    font-size: 0.92rem;
+    line-height: 1.45;
+    margin-bottom: 0.5rem;
+  }
+  .king-card-arrow-btn {
+    align-self: flex-end;
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+  /* Date Checker stacked styling */
   .date-checker-form {
     flex-direction: column;
     border-radius: var(--radius-md);
-    padding: 1rem;
+    padding: 0.75rem;
+    gap: 0;
+  }
+  .date-checker-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--hairline);
+    border-radius: 0;
+  }
+  .date-checker-input:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0.75rem;
   }
   .date-checker-submit-btn {
     width: 100%;
+    height: 48px;
     border-radius: var(--radius-pill);
+  }
+}
+
+/* Small / Compact Mobile Phones (<= 480px) */
+@media (max-width: 480px) {
+  .site-header .cta-primary-subtle {
+    display: none;
+  }
+  .nav-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .announcement-bar {
+    padding: 0.6rem 2.8rem 0.6rem 1rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  .hero-viewport {
+    padding-top: calc(var(--header-height) + 0.5rem);
+    padding-bottom: 1.5rem;
+  }
+  .hero-headline {
+    font-size: clamp(1.9rem, 7.8vw, 2.6rem);
+    column-gap: 0.25em;
+  }
+  .hero-carousel-container {
+    height: clamp(210px, 46vw, 270px);
+    margin-top: 1.25rem;
+  }
+  .angled-card {
+    width: clamp(190px, 50vw, 250px);
+  }
+  .enquiry-card {
+    padding: 1.5rem 1rem;
+  }
+  .pill-tabs-row {
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+  }
+  .pill-tab-btn {
+    font-size: 0.78rem;
+    padding: 6px 14px;
+  }
+  .lightbox-modal, .photo-lightbox-modal {
+    padding: 0.65rem;
+  }
+}
+
+/* Touch Device Ergonomics: Disable custom mouse cursor */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-follow {
+    display: none !important;
   }
 }
 

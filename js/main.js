@@ -361,26 +361,52 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isKingPaused) clearInterval(kingAutoTimer);
       else startKingAuto();
     });
+
+    // Touch swipe gesture support for King-Carousel on mobile
+    const kingStage = document.querySelector('.king-carousel-stage');
+    let kingTouchStartX = 0;
+    let kingTouchStartY = 0;
+
+    kingStage?.addEventListener('touchstart', (e) => {
+      kingTouchStartX = e.changedTouches[0].screenX;
+      kingTouchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    kingStage?.addEventListener('touchend', (e) => {
+      const diffX = e.changedTouches[0].screenX - kingTouchStartX;
+      const diffY = e.changedTouches[0].screenY - kingTouchStartY;
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 40) {
+        if (diffX < 0) {
+          // Swiped left -> next slide
+          setKingSlide((activeKingIdx + 1) % kingCards.length);
+        } else {
+          // Swiped right -> prev slide
+          setKingSlide((activeKingIdx - 1 + kingCards.length) % kingCards.length);
+        }
+        startKingAuto();
+      }
+    }, { passive: true });
   }
 
   // --- 9. Horizontal Experience Carousel Navigation ---
   const expTrack = document.getElementById('experience-track');
+  const expWrapper = document.querySelector('.horizontal-carousel-track-wrapper') || expTrack;
   const expPrevBtn = document.getElementById('exp-prev-btn');
   const expNextBtn = document.getElementById('exp-next-btn');
 
   expPrevBtn?.addEventListener('click', () => {
-    expTrack?.scrollBy({ left: -320, behavior: 'smooth' });
+    expWrapper?.scrollBy({ left: -340, behavior: 'smooth' });
   });
 
   expNextBtn?.addEventListener('click', () => {
-    expTrack?.scrollBy({ left: 320, behavior: 'smooth' });
+    expWrapper?.scrollBy({ left: 340, behavior: 'smooth' });
   });
 
   expTrack?.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') {
-      expTrack.scrollBy({ left: -320, behavior: 'smooth' });
+      expWrapper?.scrollBy({ left: -340, behavior: 'smooth' });
     } else if (e.key === 'ArrowRight') {
-      expTrack.scrollBy({ left: 320, behavior: 'smooth' });
+      expWrapper?.scrollBy({ left: 340, behavior: 'smooth' });
     }
   });
 
