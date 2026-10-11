@@ -209,6 +209,17 @@
   ]
   </script>
 
+  <!-- Theme Early Initializer (Prevents FOUC) -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -341,7 +352,29 @@
       </nav>
 
       <!-- Right Header Actions -->
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.85rem;">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Switch to light mode" title="Toggle theme">
+          <span class="theme-icon-sun" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon-moon" aria-hidden="true" style="display: none;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+        </button>
+
         <a href="#contact" class="cta cta-primary-subtle" style="display: inline-flex;">Check availability</a>
 
         <!-- Mobile Hamburger Button -->
@@ -385,6 +418,31 @@
       <a href="#mosaic" class="mobile-nav-heading" style="text-decoration: none;">Journal</a>
       <a href="#philosophy" class="mobile-nav-heading" style="text-decoration: none;">About Julian Vance</a>
       <a href="#check-date" class="mobile-nav-heading" style="text-decoration: none;">Check Date Availability</a>
+
+      <!-- Mobile Theme Toggle Option -->
+      <div class="mobile-theme-row">
+        <span>Display Mode</span>
+        <button id="mobile-theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle display mode">
+          <span class="theme-icon-sun" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon-moon" aria-hidden="true" style="display: none;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
 
     <div style="margin-top: auto; padding-top: 2rem;">
@@ -417,16 +475,16 @@
       <!-- Centered H1 with Rotating Word & CTAs -->
       <div class="hero-center-content reveal-block">
         <h1 class="hero-headline">
-          A wedding
+          <span class="hero-headline-static">A wedding</span>
           <span class="rotating-word-container" aria-hidden="true">
             <span id="rotating-word" class="rotating-word">story</span>
           </span>
           <span class="sr-only">story</span>
-          lives forever
+          <span class="hero-headline-suffix">lives forever</span>
         </h1>
 
         <div style="display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-          <a href="#check-date" class="cta cta-primary">
+          <a href="#contact" class="cta cta-primary">
             Check availability <span class="cta-arrow">→</span>
           </a>
           <a href="#experience" class="cta cta-secondary">

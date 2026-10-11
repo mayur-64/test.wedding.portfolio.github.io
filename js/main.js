@@ -98,15 +98,74 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // --- Theme Toggle Controller (Dark & Light Mode) ---
+  const themeToggleBtns = document.querySelectorAll('.theme-toggle-btn');
+
+  const applyTheme = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {}
+
+    const isLight = theme === 'light';
+    themeToggleBtns.forEach((btn) => {
+      const sunIcon = btn.querySelector('.theme-icon-sun');
+      const moonIcon = btn.querySelector('.theme-icon-moon');
+      if (sunIcon) sunIcon.style.display = isLight ? 'none' : 'inline-flex';
+      if (moonIcon) moonIcon.style.display = isLight ? 'inline-flex' : 'none';
+      const label = isLight ? 'Switch to dark mode' : 'Switch to light mode';
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    });
+  };
+
+  // Sync initial button states with current data-theme attribute
+  const initialTheme = document.documentElement.getAttribute('data-theme') ||
+    (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  applyTheme(initialTheme);
+
+  themeToggleBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const nextTheme = current === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme);
+    });
+  });
+
+  // Listen to OS-level system theme preference changes if user hasn't explicitly set preference
+  try {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        applyTheme(e.matches ? 'light' : 'dark');
+      }
+    });
+  } catch (e) {}
+
   // --- 4. Rotating Hero Word ---
   const words = ['story', 'film', 'heirloom', 'memory'];
   const rotatingWordElem = document.getElementById('rotating-word');
+  const rotatingWordContainer = rotatingWordElem ? rotatingWordElem.parentElement : null;
+  const srOnlyWord = document.querySelector('.hero-headline .sr-only');
   let currentWordIdx = 0;
 
+  const updateWordContainerWidth = () => {
+    if (rotatingWordContainer && rotatingWordElem) {
+      rotatingWordContainer.style.width = `${rotatingWordElem.offsetWidth}px`;
+    }
+  };
+
   if (rotatingWordElem && !isReducedMotion) {
+    // Initial measurement
+    setTimeout(updateWordContainerWidth, 60);
+    window.addEventListener('resize', updateWordContainerWidth);
+
     setInterval(() => {
       currentWordIdx = (currentWordIdx + 1) % words.length;
       rotatingWordElem.textContent = words[currentWordIdx];
+      if (srOnlyWord) {
+        srOnlyWord.textContent = words[currentWordIdx];
+      }
+      requestAnimationFrame(updateWordContainerWidth);
     }, 2800);
   }
 
