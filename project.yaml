@@ -1,0 +1,12 @@
+name: wedding-portfolio
+description: Julian Vance Luxury Wedding Photography Portfolio (Master)
+runtime:
+  type: static
+  language: html
+deployment:
+  port: 8105
+  command: python3 -m http.server 8105 --bind 0.0.0.0 --directory /root/wedding-portfolio
+health:
+  endpoint: /
+  timeout_seconds: 15
+restart_policy: unless-stopped

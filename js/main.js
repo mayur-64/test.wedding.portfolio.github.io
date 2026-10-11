@@ -347,12 +347,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('check-date')?.scrollIntoView({ behavior: 'smooth' });
   });
 
-  // --- 11. Date Checker Form (WhatsApp Direct Linking) ---
+  // --- 11. Date Checker Form (WhatsApp Direct Linking & Form Pre-fill) ---
   const dateForm = document.getElementById('date-checker-form');
   dateForm?.addEventListener('submit', (e) => {
     e.preventDefault();
     const dateVal = document.getElementById('inq-date')?.value || '';
     const locVal = document.getElementById('inq-location')?.value || '';
+
+    // Pre-fill main enquiry form fields if present
+    const mainDate = document.getElementById('event-date');
+    const mainLoc = document.getElementById('event-location');
+    if (mainDate && dateVal) mainDate.value = dateVal;
+    if (mainLoc && locVal) mainLoc.value = locVal;
 
     const text = encodeURIComponent(
       `Hello Julian! We would like to check availability for our wedding on ${dateVal} in ${locVal}.`
@@ -504,5 +510,209 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => revealObserver.observe(el));
   } else {
     revealElements.forEach(el => el.classList.add('revealed'));
+  }
+
+  // --- 16. Bespoke Interactive Enquiry Form (Web3Forms Integration) ---
+  const enquiryForm = document.getElementById('enquiry-form');
+  const successMsg = document.getElementById('form-success-message');
+  const errorMsg = document.getElementById('form-error-message');
+  const errorText = document.getElementById('form-error-text');
+  const submitBtn = document.getElementById('submit-btn');
+  const btnSendAnother = document.getElementById('btn-send-another');
+
+  if (enquiryForm) {
+    const btnText = submitBtn ? submitBtn.querySelector('.btn-text') : null;
+    const btnSpinner = submitBtn ? submitBtn.querySelector('.btn-spinner') : null;
+
+    // Real-time validation clearance
+    const clearFieldError = (input, errorId) => {
+      input.classList.remove('invalid');
+      const errEl = document.getElementById(errorId);
+      if (errEl) errEl.textContent = '';
+    };
+
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const eventTypeSelect = document.getElementById('event-type');
+    const messageTextarea = document.getElementById('message');
+    const phoneInput = document.getElementById('phone');
+    const eventDateInput = document.getElementById('event-date');
+    const eventLocationInput = document.getElementById('event-location');
+    const budgetSelect = document.getElementById('budget');
+    const botcheckInput = enquiryForm.querySelector('input[name="botcheck"]');
+
+    if (nameInput) {
+      nameInput.addEventListener('input', () => clearFieldError(nameInput, 'name-error'));
+    }
+    if (emailInput) {
+      emailInput.addEventListener('input', () => clearFieldError(emailInput, 'email-error'));
+    }
+    if (eventTypeSelect) {
+      eventTypeSelect.addEventListener('change', () => clearFieldError(eventTypeSelect, 'event-type-error'));
+    }
+    if (messageTextarea) {
+      messageTextarea.addEventListener('input', () => clearFieldError(messageTextarea, 'message-error'));
+    }
+
+    // Handle "Send Another Enquiry" button
+    if (btnSendAnother) {
+      btnSendAnother.addEventListener('click', () => {
+        if (successMsg) successMsg.style.display = 'none';
+        if (errorMsg) errorMsg.style.display = 'none';
+        enquiryForm.style.display = 'block';
+        enquiryForm.reset();
+        enquiryForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    enquiryForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // 1. Reset general alert state
+      if (errorMsg) errorMsg.style.display = 'none';
+
+      // 2. Client-side field validation
+      let isValid = true;
+
+      // Validate Full Name
+      if (!nameInput || !nameInput.value.trim()) {
+        isValid = false;
+        if (nameInput) {
+          nameInput.classList.add('invalid');
+          const err = document.getElementById('name-error');
+          if (err) err.textContent = 'Please enter your full name.';
+        }
+      }
+
+      // Validate Email Address
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailInput || !emailInput.value.trim()) {
+        isValid = false;
+        if (emailInput) {
+          emailInput.classList.add('invalid');
+          const err = document.getElementById('email-error');
+          if (err) err.textContent = 'Please enter your email address.';
+        }
+      } else if (!emailRegex.test(emailInput.value.trim())) {
+        isValid = false;
+        emailInput.classList.add('invalid');
+        const err = document.getElementById('email-error');
+        if (err) err.textContent = 'Please enter a valid email address (e.g. charlotte@example.com).';
+      }
+
+      // Validate Event Type
+      if (!eventTypeSelect || !eventTypeSelect.value) {
+        isValid = false;
+        if (eventTypeSelect) {
+          eventTypeSelect.classList.add('invalid');
+          const err = document.getElementById('event-type-error');
+          if (err) err.textContent = 'Please select a celebration type.';
+        }
+      }
+
+      // Validate Message / Vision
+      if (!messageTextarea || !messageTextarea.value.trim()) {
+        isValid = false;
+        if (messageTextarea) {
+          messageTextarea.classList.add('invalid');
+          const err = document.getElementById('message-error');
+          if (err) err.textContent = 'Please share a few details about your celebration and vision.';
+        }
+      }
+
+      if (!isValid) {
+        const firstInvalid = enquiryForm.querySelector('.invalid');
+        if (firstInvalid) {
+          firstInvalid.focus();
+        }
+        return;
+      }
+
+      // 3. Honeypot check (anti-bot protection)
+      if (botcheckInput && botcheckInput.checked) {
+        // Silently ignore bots without making API request
+        enquiryForm.reset();
+        enquiryForm.style.display = 'none';
+        if (successMsg) successMsg.style.display = 'flex';
+        return;
+      }
+
+      // 4. Prepare Web3Forms payload
+      const accessKey = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.WEB3FORMS_ACCESS_KEY)
+        ? APP_CONFIG.WEB3FORMS_ACCESS_KEY
+        : '20ba9c83-cec5-443b-9e81-d52124327d83';
+
+      const subjectLine = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.EMAIL_SUBJECT)
+        ? `${APP_CONFIG.EMAIL_SUBJECT} (${nameInput.value.trim()})`
+        : `Luxury Wedding Photography Enquiry from ${nameInput.value.trim()}`;
+
+      const payload = {
+        access_key: accessKey,
+        subject: subjectLine,
+        from_name: nameInput.value.trim(),
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        phone: phoneInput && phoneInput.value.trim() ? phoneInput.value.trim() : 'Not provided',
+        event_type: eventTypeSelect.value,
+        event_date: eventDateInput && eventDateInput.value ? eventDateInput.value : 'Not specified',
+        event_location: eventLocationInput && eventLocationInput.value.trim() ? eventLocationInput.value.trim() : 'Not specified',
+        budget: budgetSelect && budgetSelect.value ? budgetSelect.value : 'Not specified',
+        message: messageTextarea.value.trim()
+      };
+
+      // 5. Update UI to loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        if (btnText) btnText.style.display = 'none';
+        if (btnSpinner) btnSpinner.style.display = 'inline-flex';
+      }
+
+      // 6. Asynchronous submission to Web3Forms API
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Success: hide form, reset fields, display success banner
+          enquiryForm.reset();
+          enquiryForm.style.display = 'none';
+          if (errorMsg) errorMsg.style.display = 'none';
+          if (successMsg) {
+            successMsg.style.display = 'flex';
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else {
+          throw new Error(result.message || 'Unable to submit enquiry at this time.');
+        }
+      } catch (err) {
+        console.error('Enquiry form submission error:', err);
+        if (errorMsg) {
+          const studioEmail = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.STUDIO_EMAIL)
+            ? APP_CONFIG.STUDIO_EMAIL
+            : 'inquiries@julianvance.com';
+
+          if (errorText) {
+            errorText.innerHTML = `${err.message || 'Something went wrong while submitting your enquiry.'} Please try again, or feel free to email directly at <a href="mailto:${studioEmail}" class="alert-link">${studioEmail}</a>.`;
+          }
+          errorMsg.style.display = 'flex';
+          errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } finally {
+        // 7. Reset submit button state
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          if (btnText) btnText.style.display = '';
+          if (btnSpinner) btnSpinner.style.display = 'none';
+        }
+      }
+    });
   }
 });

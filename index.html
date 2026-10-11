@@ -342,7 +342,7 @@
 
       <!-- Right Header Actions -->
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="#check-date" class="cta cta-primary-subtle" style="display: inline-flex;">Check availability</a>
+        <a href="#contact" class="cta cta-primary-subtle" style="display: inline-flex;">Check availability</a>
 
         <!-- Mobile Hamburger Button -->
         <button id="mobile-hamburger-btn" class="mobile-hamburger" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="mobile-menu-drawer">
@@ -1031,6 +1031,11 @@
         <a href="https://wa.me/12125550198?text=Hello%20Julian!%20We%20already%20have%20our%20venue%20booked%20and%20want%20to%20discuss%20dates." target="_blank" rel="noopener noreferrer" style="color: var(--accent-champagne); font-size: 0.92rem; text-decoration: none;">
           Already booked a venue? Tell us about it &rarr;
         </a>
+        <div style="margin-top: 0.75rem;">
+          <a href="#contact" style="color: var(--text-muted); font-size: 0.88rem; text-decoration: underline;">
+            Prefer our detailed bespoke enquiry form? Inquire here &darr;
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1412,26 +1417,148 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- c) Contact & Support Link Cards -->
-      <div class="contact-cards-row reveal-block">
-        <a href="mailto:inquiries@julianvance.com" class="contact-card-box" style="text-decoration: none;">
-          <div>
-            <div style="font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-champagne);">Direct Inquiry</div>
-            <div style="font-family: var(--font-serif); font-size: 1.4rem; color: #fff; margin-top: 0.25rem;">Email Studio</div>
-            <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">inquiries@julianvance.com</div>
+    <!-- SECTION 10: Bespoke Wedding Enquiry Form -->
+    <section id="contact" class="section-container contact-section" aria-label="Wedding Enquiry & Consultation">
+      <div class="contact-wrapper reveal-block">
+        <div class="contact-header text-center">
+          <span class="contact-tag">Let’s Connect</span>
+          <h2 class="contact-title">Reserve Your Date &amp; Inquire</h2>
+          <div class="guarantee-box">
+            <p class="guarantee-text">
+              We accept a strictly limited number of bespoke weddings per season to ensure uncompromising dedication. I personally reply to every inquiry within <strong>24 hours</strong> with complete date availability.
+            </p>
           </div>
-          <div style="font-size: 1.5rem; color: var(--accent-champagne);">&rarr;</div>
-        </a>
+        </div>
 
-        <a href="https://wa.me/12125550198?text=Hello%20Julian!%20I%20would%20like%20to%20discuss%20our%20wedding%20dates." target="_blank" rel="noopener noreferrer" class="contact-card-box" style="text-decoration: none;">
-          <div>
-            <div style="font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-champagne);">Immediate Chat</div>
-            <div style="font-family: var(--font-serif); font-size: 1.4rem; color: #fff; margin-top: 0.25rem;">WhatsApp / Instagram</div>
-            <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">+1 (212) 555-0198 &middot; @julianvancestudios</div>
+        <div class="enquiry-card">
+          <!-- Interactive Enquiry Form -->
+          <form id="enquiry-form" class="enquiry-form" novalidate>
+            <!-- Web3Forms Honeypot for Spam Protection -->
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off">
+
+            <div class="form-grid">
+              <!-- Full Name (Required) -->
+              <div class="form-group">
+                <label for="name">Full Name <span class="required" aria-hidden="true">*</span></label>
+                <input type="text" id="name" name="name" placeholder="e.g. Charlotte &amp; Julian" required autocomplete="name" aria-required="true">
+                <span class="field-error-msg" id="name-error" aria-live="polite"></span>
+              </div>
+
+              <!-- Email Address (Required) -->
+              <div class="form-group">
+                <label for="email">Email Address <span class="required" aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" placeholder="e.g. charlotte@example.com" required autocomplete="email" aria-required="true">
+                <span class="field-error-msg" id="email-error" aria-live="polite"></span>
+              </div>
+
+              <!-- Telephone Number (Optional) -->
+              <div class="form-group">
+                <label for="phone">Telephone / WhatsApp <span class="optional">(Optional)</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="e.g. +1 (555) 234-5678" autocomplete="tel">
+              </div>
+
+              <!-- Event Type (Required Dropdown) -->
+              <div class="form-group">
+                <label for="event-type">Event Type <span class="required" aria-hidden="true">*</span></label>
+                <select id="event-type" name="event_type" required aria-required="true">
+                  <option value="">Please select celebration type...</option>
+                  <option value="Wedding celebration">Wedding celebration</option>
+                  <option value="Elopement &amp; intimate vows">Elopement &amp; intimate vows</option>
+                  <option value="Pre-wedding editorial shoot">Pre-wedding editorial shoot</option>
+                  <option value="Engagement session">Engagement session</option>
+                  <option value="Multi-day destination celebration">Multi-day destination celebration</option>
+                  <option value="Other celebration">Other celebration</option>
+                </select>
+                <span class="field-error-msg" id="event-type-error" aria-live="polite"></span>
+              </div>
+
+              <!-- Event Date (Optional) -->
+              <div class="form-group">
+                <label for="event-date">Celebration Date <span class="optional">(Optional)</span></label>
+                <input type="date" id="event-date" name="event_date">
+              </div>
+
+              <!-- Event Location (Optional) -->
+              <div class="form-group">
+                <label for="event-location">Destination / Venue <span class="optional">(Optional)</span></label>
+                <input type="text" id="event-location" name="event_location" placeholder="e.g. Villa Balbiano, Lake Como or Paris">
+              </div>
+
+              <!-- Estimated Photography Budget (Optional Dropdown) -->
+              <div class="form-group full-width">
+                <label for="budget">Estimated Photography Investment <span class="optional">(Optional)</span></label>
+                <select id="budget" name="budget">
+                  <option value="">Please select an investment range...</option>
+                  <option value="Under $3,000 / £2,500">Under $3,000 / £2,500</option>
+                  <option value="$3,000 – $5,000 / £2,500 – £4,000">$3,000 – $5,000 / £2,500 – £4,000</option>
+                  <option value="$5,000 – $8,000 / £4,000 – £6,500">$5,000 – $8,000 / £4,000 – £6,500</option>
+                  <option value="$8,000 – $12,000 / £6,500 – £10,000">$8,000 – $12,000 / £6,500 – £10,000</option>
+                  <option value="$12,000+ / £10,000+">$12,000+ / £10,000+</option>
+                </select>
+              </div>
+
+              <!-- Message / Vision (Required) -->
+              <div class="form-group full-width">
+                <label for="message">Your Vision &amp; Celebration Details <span class="required" aria-hidden="true">*</span></label>
+                <textarea id="message" name="message" rows="5" placeholder="Tell us about the atmosphere, what moments matter most to you both, and any questions you have..." required aria-required="true"></textarea>
+                <span class="field-error-msg" id="message-error" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <!-- Error Notification Banner (Hidden by default) -->
+            <div id="form-error-message" class="form-alert alert-error" style="display: none;" role="alert">
+              <div class="alert-icon">&#9888;</div>
+              <div class="alert-content">
+                <h3 class="alert-title">Unable to Send Enquiry</h3>
+                <p id="form-error-text">Something went wrong while submitting your enquiry. Please check your connection or contact directly via <a href="mailto:inquiries@julianvance.com" class="alert-link">inquiries@julianvance.com</a>.</p>
+              </div>
+            </div>
+
+            <div class="form-submit-row text-center">
+              <button type="submit" class="btn-submit" id="submit-btn">
+                <span class="btn-text">Send Wedding Enquiry &rarr;</span>
+                <span class="btn-spinner" style="display: none;" aria-hidden="true">
+                  <span class="spinner-icon"></span> Sending Enquiry...
+                </span>
+              </button>
+              <p class="form-privacy-note">Your celebration details are strictly confidential and will only be used to respond to your bespoke enquiry.</p>
+            </div>
+          </form>
+
+          <!-- Success Notification Banner -->
+          <div id="form-success-message" class="form-alert alert-success" style="display: none;" role="alert">
+            <div class="alert-icon">&#10003;</div>
+            <div class="alert-content">
+              <h3>Thank You for Reaching Out</h3>
+              <p>Your wedding enquiry has been received. I check inquiries daily and will reply within <strong>24 hours</strong> with date availability and full investment guide.</p>
+              <p class="spam-reminder"><em>Please check your spam or junk folder just in case our reply lands there!</em></p>
+              <button type="button" class="btn-send-another" id="btn-send-another">Send Another Enquiry</button>
+            </div>
           </div>
-          <div style="font-size: 1.5rem; color: var(--accent-champagne);">&rarr;</div>
-        </a>
+        </div>
+
+        <!-- Direct VIP Contact Cards -->
+        <div class="contact-cards-row reveal-block" style="margin-top: 2.5rem;">
+          <a href="mailto:inquiries@julianvance.com" class="contact-card-box" style="text-decoration: none;">
+            <div>
+              <div style="font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-champagne);">Direct Inquiry</div>
+              <div style="font-family: var(--font-serif); font-size: 1.4rem; color: #fff; margin-top: 0.25rem;">Email Studio</div>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">inquiries@julianvance.com</div>
+            </div>
+            <div style="font-size: 1.5rem; color: var(--accent-champagne);">&rarr;</div>
+          </a>
+
+          <a href="https://wa.me/12125550198?text=Hello%20Julian!%20I%20would%20like%20to%20discuss%20our%20wedding%20dates." target="_blank" rel="noopener noreferrer" class="contact-card-box" style="text-decoration: none;">
+            <div>
+              <div style="font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-champagne);">Immediate Chat</div>
+              <div style="font-family: var(--font-serif); font-size: 1.4rem; color: #fff; margin-top: 0.25rem;">WhatsApp / Instagram</div>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">+1 (212) 555-0198 &middot; @julianvancestudios</div>
+            </div>
+            <div style="font-size: 1.5rem; color: var(--accent-champagne);">&rarr;</div>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1453,8 +1580,8 @@
           Tell me about your date. I reply within 24 hours.
         </p>
 
-        <a href="#check-date" class="cta cta-primary" style="font-size: 1.1rem; padding: 18px 36px;">
-          Check availability <span class="cta-arrow">&rarr;</span>
+        <a href="#contact" class="cta cta-primary" style="font-size: 1.1rem; padding: 18px 36px;">
+          Inquire for availability <span class="cta-arrow">&rarr;</span>
         </a>
       </div>
     </section>
@@ -1502,7 +1629,7 @@
             <a href="#philosophy" class="footer-link">About Julian Vance</a>
             <a href="#styles" class="footer-link">Press &amp; Publications</a>
             <a href="mailto:inquiries@julianvance.com" class="footer-link">Contact Studio</a>
-            <a href="#check-date" class="footer-link">Check Availability</a>
+            <a href="#contact" class="footer-link">Check Availability</a>
           </div>
         </div>
 
@@ -1536,7 +1663,7 @@
 
   <!-- MOBILE STICKY BOTTOM CTA BAR (Appears after hero, hides near final CTA) -->
   <aside class="mobile-sticky-cta-bar" aria-label="Quick Mobile Booking Action">
-    <a href="#check-date" class="cta cta-primary" style="width: 100%; justify-content: center;">
+    <a href="#contact" class="cta cta-primary" style="width: 100%; justify-content: center;">
       Check availability &rarr;
     </a>
   </aside>
@@ -1567,7 +1694,8 @@
     </div>
   </div>
 
-  <!-- Main JavaScript Motion Engine -->
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
