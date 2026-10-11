@@ -9,7 +9,7 @@ window.EMBEDDED_PORTFOLIO_DATA = {
     "weddingsDocumented": "250+",
     "countriesCovered": "18+",
     "awardsCount": "14+",
-    "email": "inquiries@julianvance.com",
+    "email": "Mail@reelsandrituals.com",
     "phone": "+1 (212) 555-0198",
     "whatsapp": "+12125550198",
     "instagram": "https://www.instagram.com/julianvancestudios",

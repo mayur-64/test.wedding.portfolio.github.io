@@ -7,5 +7,5 @@ const APP_CONFIG = {
   EMAIL_SUBJECT: "New Luxury Wedding Photography Enquiry - Julian Vance Studios",
 
   // Studio direct email fallback
-  STUDIO_EMAIL: "inquiries@julianvance.com"
+  STUDIO_EMAIL: "Mail@reelsandrituals.com"
 };

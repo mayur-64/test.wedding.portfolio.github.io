@@ -597,6 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const phoneInput = document.getElementById('phone');
     const eventDateInput = document.getElementById('event-date');
     const eventLocationInput = document.getElementById('event-location');
+    const favPhotographerInput = document.getElementById('favourite-photographer');
     const budgetSelect = document.getElementById('budget');
     const botcheckInput = enquiryForm.querySelector('input[name="botcheck"]');
 
@@ -715,6 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event_type: eventTypeSelect.value,
         event_date: eventDateInput && eventDateInput.value ? eventDateInput.value : 'Not specified',
         event_location: eventLocationInput && eventLocationInput.value.trim() ? eventLocationInput.value.trim() : 'Not specified',
+        favourite_photographer: favPhotographerInput && favPhotographerInput.value.trim() ? favPhotographerInput.value.trim() : 'Not specified',
         budget: budgetSelect && budgetSelect.value ? budgetSelect.value : 'Not specified',
         message: messageTextarea.value.trim()
       };
@@ -756,7 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (errorMsg) {
           const studioEmail = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.STUDIO_EMAIL)
             ? APP_CONFIG.STUDIO_EMAIL
-            : 'inquiries@julianvance.com';
+            : 'Mail@reelsandrituals.com';
 
           if (errorText) {
             errorText.innerHTML = `${err.message || 'Something went wrong while submitting your enquiry.'} Please try again, or feel free to email directly at <a href="mailto:${studioEmail}" class="alert-link">${studioEmail}</a>.`;
